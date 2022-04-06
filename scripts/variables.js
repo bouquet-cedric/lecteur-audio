@@ -16,6 +16,7 @@ var COLOR_RATE = {
 };
 
 var DISP_BAD_SOUND = false;
+var FREQ_RATE = 0.25;
 
 var start = [];
 let names = [];

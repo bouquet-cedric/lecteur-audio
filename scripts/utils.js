@@ -15,6 +15,40 @@ function declareElt(elt, classe) {
     return e;
 }
 
+function StyleBarre() {
+    let barres = document.getElementsByClassName("barre");
+    for (let i = 0; i < barres.length; i++) {
+        let barre = barres[i];
+        barre.style.width = "10%";
+        barre.style.border = "1px solid black";
+        barre.style.display = "flex";
+        barre.style.justifyContent = "space-evenly";
+        barre.style.alignItems = "center";
+        let children = barre.children;
+        for (let j = 0; j < children.length; j++) {
+            children[j].style.width = "100%";
+        }
+    }
+}
+
+function StyleMusik() {
+    let musicos = document.getElementsByClassName("musik");
+    for (let i = 0; i < musicos.length; i++) {
+        let mzik = musicos[i];
+        mzik.style.backgroundColor = "black";
+        mzik.style.color = "white";
+        mzik.style.position = "relative";
+        mzik.style.borderRadius = "25px";
+        mzik.style.border = "1px solid black";
+        mzik.style.width = "50%";
+        mzik.style.padding = "1em 0.5em 0em 0.5em";
+        mzik.style.display = "flex";
+        mzik.style.flexDirection = "row";
+        mzik.style.marginBottom = "2em";
+        mzik.style.justifyContent = "space-evenly";
+    }
+}
+
 function addRecord(source) {
     var container = document.getElementById("audios");
     var musik = declareElt("div", "musik");
@@ -147,7 +181,7 @@ function styleSvg(elt, image_name) {
     elt.style.height = "3em";
     elt.style.border = "none"
     elt.style.backgroundRepeat = "no-repeat";
-    elt.style.backgroundImage = "url(\"" + image_name + ".svg\")";
+    elt.style.backgroundImage = "url(\"resources/" + image_name + ".svg\")";
 }
 
 function sToTime(t) {
@@ -161,6 +195,7 @@ function padZero(v) {
 }
 
 function init() {
+    StyleMusik();
     var container = document.getElementById("ctnr");
     container.style.border = "1px solid black";
     container.style.width = "50%";
@@ -189,16 +224,16 @@ function init() {
         document.getElementsByClassName("name")[i].textContent = names[i];
 
         document.getElementsByClassName("rM")[i].addEventListener("click", function(e) {
-            if (rates[i] - 0.5 > 0) {
-                rates[i] -= 0.5;
+            if (rates[i] - FREQ_RATE > 0) {
+                rates[i] -= FREQ_RATE;
                 document.getElementsByClassName("rVal")[i].textContent = rates[i] + "x";
                 document.getElementsByClassName("zik")[i].playbackRate = rates[i];
             }
         });
 
         document.getElementsByClassName("rP")[i].addEventListener("click", function(e) {
-            if (rates[i] + 0.5 < 3) {
-                rates[i] += 0.5;
+            if (rates[i] + FREQ_RATE < 3) {
+                rates[i] += FREQ_RATE;
                 document.getElementsByClassName("rVal")[i].textContent = rates[i] + "x";
                 document.getElementsByClassName("zik")[i].playbackRate = rates[i];
             }
@@ -300,4 +335,5 @@ function init() {
         })
     }
     styleAdvanced();
+    StyleBarre();
 }
