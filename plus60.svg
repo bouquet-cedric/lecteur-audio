@@ -1,0 +1,9 @@
+<svg width="400" height="400"
+    xmlns="http://www.w3.org/2000/svg" 
+    version="1.1" 
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+  <circle cx="200" cy="200" r="200" fill="transparent" />
+    <path d="M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z" fill="skyblue" stroke="black"/>
+    <path d="M130,100 Q180,200,130,300 L155,300 L330,200 L155,100 Z" fill="red" stroke="black"/>
+    <path d="M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z" fill="orange" stroke="black"/>
+</svg>
