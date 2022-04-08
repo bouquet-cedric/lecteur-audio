@@ -60,6 +60,38 @@ var ManageZik = (function() {
     };
 })();
 
+var FREQ_RATE = 0.25;
+
+var DESIGN = {
+    COLOR_VOLUME: {
+        "bg": "black",
+        "fg": "white",
+        "button": "red",
+        "_button": "grey"
+    },
+    COLOR_CONTROLLER: {
+        "bg": "black",
+        "button": "white"
+    },
+    COLOR_RATE: {
+        "bg": "black",
+        "fg": "white",
+        "_button": "grey"
+    },
+    COLOR_TIME: {
+        "DEFAULT": "black",
+        "TIME_10": "purple",
+        "TIME_20": "#1044AA",
+        "TIME_30": "#0265FF",
+        "TIME_40": "#006599",
+        "TIME_50": "#669801",
+        "TIME_60": "#99CC01",
+        "TIME_70": "yellow",
+        "TIME_80": "#FFCC11",
+        "TIME_90": "#FE9900",
+        "TIME_100": "#FF6501"
+    }
+};
 class Lecteur {
 
     constructor() {
@@ -170,8 +202,8 @@ class Lecteur {
         }
         liste = [frateD1, frateD2];
         for (let i of liste) {
-            i.style.backgroundColor = COLOR_RATE._button;
-            i.style.color = COLOR_RATE.fg;
+            i.style.backgroundColor = DESIGN.COLOR_RATE._button;
+            i.style.color = DESIGN.COLOR_RATE.fg;
             i.style.borderBottom = "1px solid black";
             i.style.display = " flex";
             i.style.flexDirection = "row";
@@ -179,7 +211,7 @@ class Lecteur {
             i.style.justifyContent = "space-evenly";
             i.style.width = "100%";
         }
-        rate.style.backgroundColor = COLOR_RATE.bg;
+        rate.style.backgroundColor = DESIGN.COLOR_RATE.bg;
         frate.appendChild(frateD1);
         frate.appendChild(frateD2);
         frateD2.appendChild(frateVal);
@@ -224,7 +256,7 @@ class Lecteur {
     static styleAdvanced() {
         let adv = document.getElementsByClassName("advanced");
         for (let i = 0; i < adv.length; i++) {
-            adv[i].style.backgroundColor = COLOR_CONTROLLER.bg;
+            adv[i].style.backgroundColor = DESIGN.COLOR_CONTROLLER.bg;
             adv[i].style.borderRadius = "0.5em";
             adv[i].style.width = "100%";
             adv[i].style.padding = "0.5em";
@@ -234,7 +266,7 @@ class Lecteur {
             let children = adv[i].children;
             for (let j = 0; j < children.length; j++) {
                 if (children[j].tagName == "BUTTON") {
-                    children[j].style.backgroundColor = COLOR_CONTROLLER.button;
+                    children[j].style.backgroundColor = DESIGN.COLOR_CONTROLLER.button;
                     children[j].style.borderRadius = "50%";
                     children[j].style.marginRight = "5px";
                 }
@@ -275,10 +307,10 @@ class Lecteur {
         let volume = (parseInt(element.value, 10) * 20);
         document.getElementsByClassName("getVol")[index].textContent = volume + "%";
         document.getElementsByClassName("zik")[index].volume = volume / 100;
-        element.style.backgroundColor = COLOR_VOLUME.button;
+        element.style.backgroundColor = DESIGN.COLOR_VOLUME.button;
         for (let k = 1; k <= 5; k++) {
             if (jbtn != k)
-                document.getElementsByClassName("V" + k)[index].style.backgroundColor = COLOR_VOLUME._button;
+                document.getElementsByClassName("V" + k)[index].style.backgroundColor = DESIGN.COLOR_VOLUME._button;
         }
     }
 
@@ -354,17 +386,17 @@ class Lecteur {
         current = Lecteur.sToTime(current);
         duration = Lecteur.sToTime(duration);
         document.getElementsByClassName("time_value")[index].textContent = current + "/" + duration;
-        let change_color = COLOR_TIME.DEFAULT;
-        if (percent <= 10) change_color = COLOR_TIME.TIME_10;
-        else if (percent <= 20) change_color = COLOR_TIME.TIME_20;
-        else if (percent <= 30) change_color = COLOR_TIME.TIME_30;
-        else if (percent <= 40) change_color = COLOR_TIME.TIME_40;
-        else if (percent <= 50) change_color = COLOR_TIME.TIME_50;
-        else if (percent <= 60) change_color = COLOR_TIME.TIME_60;
-        else if (percent <= 70) change_color = COLOR_TIME.TIME_70;
-        else if (percent <= 80) change_color = COLOR_TIME.TIME_80;
-        else if (percent <= 90) change_color = COLOR_TIME.TIME_90;
-        else if (percent <= 100) change_color = COLOR_TIME.TIME_100;
+        let change_color = DESIGN.COLOR_TIME.DEFAULT;
+        if (percent <= 10) change_color = DESIGN.COLOR_TIME.TIME_10;
+        else if (percent <= 20) change_color = DESIGN.COLOR_TIME.TIME_20;
+        else if (percent <= 30) change_color = DESIGN.COLOR_TIME.TIME_30;
+        else if (percent <= 40) change_color = DESIGN.COLOR_TIME.TIME_40;
+        else if (percent <= 50) change_color = DESIGN.COLOR_TIME.TIME_50;
+        else if (percent <= 60) change_color = DESIGN.COLOR_TIME.TIME_60;
+        else if (percent <= 70) change_color = DESIGN.COLOR_TIME.TIME_70;
+        else if (percent <= 80) change_color = DESIGN.COLOR_TIME.TIME_80;
+        else if (percent <= 90) change_color = DESIGN.COLOR_TIME.TIME_90;
+        else if (percent <= 100) change_color = DESIGN.COLOR_TIME.TIME_100;
         document.getElementsByClassName("time")[index].style.backgroundColor = change_color;
     }
 
@@ -458,9 +490,9 @@ class Lecteur {
                 document.getElementsByClassName(controller[0])[i].addEventListener("click", this.moveTime.bind(event, i, controller[2]), false);
             }
 
-            document.getElementsByClassName("volume")[i].style.backgroundColor = COLOR_VOLUME.bg;
-            document.getElementsByClassName("volume")[i].style.color = COLOR_VOLUME.fg;
-            document.getElementsByClassName("V1")[i].style.backgroundColor = COLOR_VOLUME.button;
+            document.getElementsByClassName("volume")[i].style.backgroundColor = DESIGN.COLOR_VOLUME.bg;
+            document.getElementsByClassName("volume")[i].style.color = DESIGN.COLOR_VOLUME.fg;
+            document.getElementsByClassName("V1")[i].style.backgroundColor = DESIGN.COLOR_VOLUME.button;
             for (let j = 1; j <= 5; j++) {
                 document.getElementsByClassName("V" + j)[i].addEventListener("click", this.reguleVolume.bind(event, i, j), false);
             }
