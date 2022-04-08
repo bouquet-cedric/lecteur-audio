@@ -19,9 +19,7 @@ var COLOR_RATE = {
 
 var FREQ_RATE = 0.25;
 
-var start = [];
-let names = [];
-let rates = [];
+
 
 var COLOR_TIME = {
     "DEFAULT": "black",

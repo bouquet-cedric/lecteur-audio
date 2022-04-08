@@ -1,6 +1,67 @@
 /* jshint esversion: 6 */
 
+var ManageZik = (function() {
+    var Ziks = []; // [titre,start,rate]
+    function setZik(indexZik, index, elt) {
+        if (Ziks[indexZik] == undefined)
+            Ziks[indexZik] = [];
+        Ziks[indexZik][index] = elt;
+    }
+    return {
+        getZiks: function() {
+            return Ziks;
+        },
+        addZiks: function(titre, start, rate) {
+            Ziks.push([titre, start, rate]);
+        },
+        setRate: function(index, rate) {
+            setZik(index, 2, rate);
+        },
+        setTitre: function(index, titre) {
+            setZik(index, 0, titre);
+        },
+        setStart: function(index, start) {
+            setZik(index, 1, start);
+        },
+        getZik(index) {
+            return Ziks[index];
+        },
+        getTitre(index) {
+            return this.getZik(index)[0];
+        },
+        getRate(index) {
+            return this.getZik(index)[2];
+        },
+        getStart(index) {
+            return this.getZik(index)[1];
+        },
+        getTitlesByLetter(letter) {
+            let res = [];
+            for (let i = 0; i < this.getZiks().length; i++) {
+                if (this.getTitre(i) != "" && this.isPlayable(i) && this.getTitre(i)[0].toLowerCase() == letter.toLowerCase())
+                    res.push(this.getZik(i));
+            }
+            return res;
+        },
+        removeZik(index) {
+            this.setTitre(index, "");
+            this.setStart(index, false);
+            this.setRate(index, 0);
+        },
+        setPlayable(index, mode) {
+            setZik(index, 3, mode);
+        },
+        isPlayable(index) {
+            return this.getZik(index)[3];
+        },
+        setTime(index, time) {
+            setZik(index, 4, time);
+        }
+    };
+})();
+
 class Lecteur {
+
     constructor() {
 
     }
@@ -226,12 +287,12 @@ class Lecteur {
         let audio = document.getElementsByClassName("zik")[index];
         let elt = document.getElementsByClassName("play")[index];
         let image = "";
-        if (start[index]) {
+        if (ManageZik.getStart(index)) {
             audio.pause();
-            start[index] = false;
+            ManageZik.setStart(index, false);
             image = "start";
         } else {
-            start[index] = true;
+            ManageZik.setStart(index, true);
             audio.play();
             image = "pause";
         }
@@ -242,25 +303,28 @@ class Lecteur {
         let index = event;
         let dir = i;
         let valeur = 0;
+        let rate = ManageZik.getRate(index);
         if (dir == '-') {
-            if (rates[index] - FREQ_RATE > 0) {
+            if (rate - FREQ_RATE > 0) {
                 valeur = -FREQ_RATE;
             }
         }
         if (dir == '+') {
-            if (rates[index] + FREQ_RATE < 3) {
+            if (rate + FREQ_RATE < 3) {
                 valeur = FREQ_RATE;
             }
         }
-        rates[index] += valeur;
-        document.getElementsByClassName("rVal")[index].textContent = rates[index] + "x";
-        document.getElementsByClassName("zik")[index].playbackRate = rates[index];
+        let newValue = rate + valeur;
+        ManageZik.setRate(index, newValue);
+        document.getElementsByClassName("rVal")[index].textContent = (newValue) + "x";
+        document.getElementsByClassName("zik")[index].playbackRate = (newValue);
     }
 
     canplay(event, i) {
         let index = event;
         document.getElementsByClassName("error_sound")[index].style.visibility = "hidden";
         document.getElementsByClassName("musik")[index].style.visibility = "visible";
+        ManageZik.setPlayable(index, true);
         Lecteur.checkNameZik(index);
     }
 
@@ -276,11 +340,12 @@ class Lecteur {
         let glob = document.getElementsByClassName("zik")[index];
         var duration = glob.duration;
         var current = glob.currentTime;
+        ManageZik.setTime(index, current);
         var percent = Math.ceil((current / duration) * 100);
         if (current == duration) {
             let elt = glob;
             setTimeout(() => {
-                start[index] = false;
+                ManageZik.setStart(index, false);
                 elt.currentTime = 0;
                 Lecteur.styleSvg(document.getElementsByClassName("play")[index], "start");
             }, 500);
@@ -353,6 +418,7 @@ class Lecteur {
                     musik.style.visibility = "hidden";
                     err_so.style.visibility = "visible";
                     errorText.textContent = " est déjà dans la playlist";
+                    ManageZik.removeZik(index);
                 }
             }
         }
@@ -366,13 +432,15 @@ class Lecteur {
         Lecteur.styleBarre();
 
         for (let i = 0; i < document.getElementsByClassName("musik").length; i++) {
-            start.push(false);
-            rates.push(1);
+            ManageZik.setStart(i, false);
+            ManageZik.setRate(i, 1);
+            ManageZik.setPlayable(i, false);
             Lecteur.manageBadSound(i);
             let namus = document.getElementsByClassName("zik")[i].attributes.src.value.split(".")[0];
             let last = namus.split("/").length;
-            names.push(namus.split("/")[last - 1]);
-            document.getElementsByClassName("name")[i].textContent = names[i];
+            let the_name = namus.split("/")[last - 1];
+            ManageZik.setTitre(i, the_name);
+            document.getElementsByClassName("name")[i].textContent = the_name;
 
             document.getElementsByClassName("rM")[i].addEventListener("click", this.rating.bind(event, i, '-'));
             document.getElementsByClassName("rP")[i].addEventListener("click", this.rating.bind(event, i, '+'));
