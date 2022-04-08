@@ -16,12 +16,14 @@
         <div id="audios"></div>
     </div>
 
-    <script>
-        addRecord("audios/casseurs-flowters-a-lheure-ou-je-me-couche.mp3")
-        addRecord("audios/keny-arkana-entre-ciment-et-belle-etoile.mp3")
-        addRecord("audios/keny-arkana-desobeissance.mp3")
-        addRecord("audios/Keny Arkana - La Mère Des Enfants Perdus.mp3")
-        init();
+    <script type="text/javascript">
+        var lecteur = new Lecteur();
+        lecteur.addRecord("audios/casseurs-flowters-a-lheure-ou-je-me-couche.mp3")
+        lecteur.addRecord("audios/keny-arkana-desobeissance.mp3")
+        lecteur.addRecord("audios/keny-arkana-entre-ciment-et-belle-etoile.mp3")
+        lecteur.addRecord("audios/Keny Arkana - La Mère Des Enfants Perdus.mp3")
+        lecteur.addRecord("audios/Keny Arkana - La Mère Des Enfants Perdus.mp3")
+        lecteur.init();
     </script>
 </body>
 
