@@ -56,6 +56,12 @@ var ManageZik = (function() {
         },
         setTime(index, time) {
             setZik(index, 4, time);
+        },
+        setAudio(index, audio) {
+            setZik(index, 5, audio);
+        },
+        getAudio(index, audio) {
+            return this.getZik(index)[5];
         }
     };
 })();
@@ -80,21 +86,38 @@ var DESIGN = {
     },
     COLOR_TIME: {
         "DEFAULT": "black",
-        "TIME_10": "purple",
-        "TIME_20": "#1044AA",
-        "TIME_30": "#0265FF",
-        "TIME_40": "#006599",
-        "TIME_50": "#669801",
-        "TIME_60": "#99CC01",
-        "TIME_70": "yellow",
-        "TIME_80": "#FFCC11",
-        "TIME_90": "#FE9900",
-        "TIME_100": "#FF6501"
+        "TIME_0": "purple",
+        "TIME_10": "#1044AA",
+        "TIME_20": "#0265FF",
+        "TIME_30": "#006599",
+        "TIME_40": "#669801",
+        "TIME_50": "#99CC01",
+        "TIME_60": "yellow",
+        "TIME_70": "#FFCC11",
+        "TIME_80": "#FE9900",
+        "TIME_90": "#FF6501"
     }
 };
 class Lecteur {
 
     constructor() {
+
+    }
+
+    static setColorTimeDefaultValue(value) {
+        DESIGN.COLOR_TIME.DEFAULT = value;
+    }
+
+    static setColorTime(values) {
+        DESIGN.COLOR_TIME.DEFAULT = "black";
+        let step = parseInt(100 / values.length);
+        for (let i = 0; i < 100; i += 10) {
+            delete DESIGN.COLOR_TIME["TIME_" + i];
+        }
+        for (let i = 0; i < 100; i += step) {
+            if (values[i / step] != undefined)
+                DESIGN.COLOR_TIME["TIME_" + i] = values[i / step];
+        }
 
     }
 
@@ -316,7 +339,7 @@ class Lecteur {
 
     myplay(event, i) {
         let index = event;
-        let audio = document.getElementsByClassName("zik")[index];
+        let audio = ManageZik.getAudio(index);
         let elt = document.getElementsByClassName("play")[index];
         let image = "";
         if (ManageZik.getStart(index)) {
@@ -360,16 +383,32 @@ class Lecteur {
         Lecteur.checkNameZik(index);
     }
 
+    static formatTime(index, current, duration) {
+        document.getElementsByClassName("time_value")[index].textContent =
+            Lecteur.sToTime(current) + " / " + Lecteur.sToTime(duration);
+    }
+
     afterdata(event, i) {
         let index = event;
-        document.getElementsByClassName("time_value")[index].textContent = Lecteur.sToTime(document.getElementsByClassName("zik")[index].currentTime) +
-            " / " +
-            Lecteur.sToTime(document.getElementsByClassName("zik")[index].duration);
+        let audio = ManageZik.getAudio(index);
+        Lecteur.formatTime(index, audio.currentTime, audio.duration);
+    }
+
+    static getStepFromColorTime() {
+        let long = -1;
+        for (let i in DESIGN.COLOR_TIME) {
+            if (DESIGN.COLOR_TIME[i] != undefined)
+                long++;
+            else
+                delete DESIGN.COLOR_TIME[i];
+        }
+        let step = parseInt(100 / long);
+        return step;
     }
 
     timeupdate(event, i) {
         let index = event;
-        let glob = document.getElementsByClassName("zik")[index];
+        let glob = ManageZik.getAudio(index);
         var duration = glob.duration;
         var current = glob.currentTime;
         ManageZik.setTime(index, current);
@@ -383,20 +422,16 @@ class Lecteur {
             }, 500);
         }
         document.getElementsByClassName("time")[index].style.width = percent + "%";
-        current = Lecteur.sToTime(current);
-        duration = Lecteur.sToTime(duration);
-        document.getElementsByClassName("time_value")[index].textContent = current + "/" + duration;
+        Lecteur.formatTime(index, current, duration);
         let change_color = DESIGN.COLOR_TIME.DEFAULT;
-        if (percent <= 10) change_color = DESIGN.COLOR_TIME.TIME_10;
-        else if (percent <= 20) change_color = DESIGN.COLOR_TIME.TIME_20;
-        else if (percent <= 30) change_color = DESIGN.COLOR_TIME.TIME_30;
-        else if (percent <= 40) change_color = DESIGN.COLOR_TIME.TIME_40;
-        else if (percent <= 50) change_color = DESIGN.COLOR_TIME.TIME_50;
-        else if (percent <= 60) change_color = DESIGN.COLOR_TIME.TIME_60;
-        else if (percent <= 70) change_color = DESIGN.COLOR_TIME.TIME_70;
-        else if (percent <= 80) change_color = DESIGN.COLOR_TIME.TIME_80;
-        else if (percent <= 90) change_color = DESIGN.COLOR_TIME.TIME_90;
-        else if (percent <= 100) change_color = DESIGN.COLOR_TIME.TIME_100;
+        let vars = Lecteur.getStepFromColorTime();
+        if (DESIGN.COLOR_TIME.DEFAULT == "black") {
+            for (let temps = 0; temps < 100; temps += vars) {
+                if (percent > temps) {
+                    change_color = DESIGN.COLOR_TIME["TIME_" + temps];
+                }
+            }
+        }
         document.getElementsByClassName("time")[index].style.backgroundColor = change_color;
     }
 
@@ -431,7 +466,7 @@ class Lecteur {
     static checkNameZik(index) {
         let musik = document.getElementsByClassName("musik")[index];
         let err_so = document.getElementsByClassName("error_sound")[index];
-        let zik = document.getElementsByClassName("zik")[index];
+        let zik = ManageZik.getAudio(index);
         let name = zik.attributes.src.value;
         var cpt = 0;
         for (let i in name) {
@@ -445,7 +480,7 @@ class Lecteur {
             errorText.textContent = " n'a pas le bon format";
         } else {
             for (let i = 0; i < index; i++) {
-                let elt_name = document.getElementsByClassName("zik")[i].attributes.src.value;
+                let elt_name = ManageZik.getAudio(i).attributes.src.value;
                 if (name == elt_name) {
                     musik.style.visibility = "hidden";
                     err_so.style.visibility = "visible";
@@ -467,8 +502,9 @@ class Lecteur {
             ManageZik.setStart(i, false);
             ManageZik.setRate(i, 1);
             ManageZik.setPlayable(i, false);
+            ManageZik.setAudio(i, document.getElementsByClassName("zik")[i]);
             Lecteur.manageBadSound(i);
-            let namus = document.getElementsByClassName("zik")[i].attributes.src.value.split(".")[0];
+            let namus = ManageZik.getAudio(i).attributes.src.value.split(".")[0];
             let last = namus.split("/").length;
             let the_name = namus.split("/")[last - 1];
             ManageZik.setTitre(i, the_name);
@@ -477,9 +513,9 @@ class Lecteur {
             document.getElementsByClassName("rM")[i].addEventListener("click", this.rating.bind(event, i, '-'));
             document.getElementsByClassName("rP")[i].addEventListener("click", this.rating.bind(event, i, '+'));
 
-            document.getElementsByClassName("zik")[i].addEventListener("canplay", this.canplay.bind(event, i));
-            document.getElementsByClassName("zik")[i].addEventListener("loadedmetadata", this.afterdata.bind(event, i));
-            document.getElementsByClassName("zik")[i].volume = 0.2;
+            ManageZik.getAudio(i).addEventListener("canplay", this.canplay.bind(event, i));
+            ManageZik.getAudio(i).addEventListener("loadedmetadata", this.afterdata.bind(event, i));
+            ManageZik.getAudio(i).volume = 0.2;
 
             document.getElementsByClassName("getVol")[i].textContent = "20%";
 
@@ -487,19 +523,19 @@ class Lecteur {
                     ["M60", "moins60", -60], ["M10", "moins10", -10], ["P10", "plus10", 10], ["P60", "plus60", 60]
                 ]) {
                 Lecteur.styleSvg(document.getElementsByClassName(controller[0])[i], controller[1]);
-                document.getElementsByClassName(controller[0])[i].addEventListener("click", this.moveTime.bind(event, i, controller[2]), false);
+                document.getElementsByClassName(controller[0])[i].addEventListener("click", this.moveTime.bind(event, i, controller[2]));
             }
-
-            document.getElementsByClassName("volume")[i].style.backgroundColor = DESIGN.COLOR_VOLUME.bg;
-            document.getElementsByClassName("volume")[i].style.color = DESIGN.COLOR_VOLUME.fg;
+            let volumer = document.getElementsByClassName("volume")[i];
+            volumer.style.backgroundColor = DESIGN.COLOR_VOLUME.bg;
+            volumer.style.color = DESIGN.COLOR_VOLUME.fg;
             document.getElementsByClassName("V1")[i].style.backgroundColor = DESIGN.COLOR_VOLUME.button;
             for (let j = 1; j <= 5; j++) {
-                document.getElementsByClassName("V" + j)[i].addEventListener("click", this.reguleVolume.bind(event, i, j), false);
+                document.getElementsByClassName("V" + j)[i].addEventListener("click", this.reguleVolume.bind(event, i, j));
             }
-
-            Lecteur.styleSvg(document.getElementsByClassName("play")[i], "start");
-            document.getElementsByClassName("play")[i].addEventListener("click", this.myplay.bind(event, i));
-            document.getElementsByClassName("zik")[i].addEventListener("timeupdate", this.timeupdate.bind(event, i));
+            let player = document.getElementsByClassName("play")[i];
+            Lecteur.styleSvg(player, "start");
+            player.addEventListener("click", this.myplay.bind(event, i));
+            ManageZik.getAudio(i).addEventListener("timeupdate", this.timeupdate.bind(event, i));
         }
     }
 }
