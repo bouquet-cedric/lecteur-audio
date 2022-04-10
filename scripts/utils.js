@@ -729,7 +729,7 @@ class Lecteur {
             let volumer = document.getElementsByClassName("volume")[i];
             volumer.style.backgroundColor = DESIGN.COLOR_VOLUME.bg;
             volumer.style.color = DESIGN.COLOR_VOLUME.fg;
-            document.getElementsByClassName("V1")[i].style.backgroundColor = DESIGN.COLOR_VOLUME.button[4];
+            document.getElementsByClassName("V1")[i].style.backgroundColor = DESIGN.COLOR_VOLUME.button[0];
             for (let j = 1; j <= 5; j++) {
                 document.getElementsByClassName("V" + j)[i].addEventListener("click", this.reguleVolume.bind(event, i, j));
             }
