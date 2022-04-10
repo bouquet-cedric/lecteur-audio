@@ -1,7 +1,44 @@
 /* jshint esversion: 6 */
 
+var Svg = (function() {
+    return {
+        start: "url(\"data:image/svg+xml;utf8," +
+            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+            "<circle cx='200' cy='200' r='200' fill='transparent'/>" +
+            "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='green' stroke='black'/></svg>\")",
+        moins10: "url(\"data:image/svg+xml;utf8," +
+            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+            "<circle cx='200' cy='200' r='200' fill='transparent' />" +
+            "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='skyblue' stroke='black' />" +
+            "<path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill = 'orange' stroke = 'black' /></svg>\")",
+        moins60: "url(\"data:image/svg+xml;utf8," +
+            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+            "<circle cx='200' cy='200' r='200' fill='transparent' />" +
+            "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='skyblue' stroke='black'/>" +
+            "<path d='M260,100 Q210,200,260,300 L235,300 L60,200 L235,100 Z' fill='red' stroke='black'/>" +
+            "<path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill='orange' stroke='black'/></svg>\")",
+        plus10: "url(\"data:image/svg+xml;utf8," +
+            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+            "<circle cx='200' cy='200' r='200' fill='transparent' />" +
+            "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
+            "<path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/></svg>\")",
+        plus60: "url(\"data:image/svg+xml;utf8," +
+            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+            "<circle cx='200' cy='200' r='200' fill='transparent' />" +
+            "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
+            "<path d='M130,100 Q180,200,130,300 L155,300 L330,200 L155,100 Z' fill='red' stroke='black'/>" +
+            "<path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/></svg>\")",
+        pause: "url(\"data:image/svg+xml;utf8," +
+            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+            "<circle cx='200' cy='200' r='200' fill='transparent' />" +
+            "<path d='M100,100 Q150,200,100,300 L170,300  Q120,200,170,100 Z' fill='red' stroke='black'/>" +
+            "<path d='M230,100 Q280,200,230,300 L300,300  Q250,200,300,100 Z' fill='red' stroke='black'/></svg>\")"
+    };
+})();
+
 var ManageZik = (function() {
-    var Ziks = []; // [titre,start,rate]
+    var Ziks = [];
+
     function setZik(indexZik, index, elt) {
         if (Ziks[indexZik] == undefined)
             Ziks[indexZik] = [];
@@ -14,26 +51,32 @@ var ManageZik = (function() {
         addZiks: function(titre, start, rate) {
             Ziks.push([titre, start, rate]);
         },
-        setRate: function(index, rate) {
-            setZik(index, 2, rate);
-        },
         setTitre: function(index, titre) {
             setZik(index, 0, titre);
-        },
-        setStart: function(index, start) {
-            setZik(index, 1, start);
-        },
-        getZik(index) {
-            return Ziks[index];
         },
         getTitre(index) {
             return this.getZik(index)[0];
         },
-        getRate(index) {
-            return this.getZik(index)[2];
+        setAuthor(index, author) {
+            setZik(index, 1, author);
+        },
+        getAuthor(index, author) {
+            return this.getZik(index)[1];
+        },
+        setStart: function(index, start) {
+            setZik(index, 2, start);
         },
         getStart(index) {
-            return this.getZik(index)[1];
+            return this.getZik(index)[2];
+        },
+        setRate: function(index, rate) {
+            setZik(index, 3, rate);
+        },
+        getRate(index) {
+            return this.getZik(index)[3];
+        },
+        getZik(index) {
+            return Ziks[index];
         },
         getTitlesByLetter(letter) {
             let res = [];
@@ -49,13 +92,10 @@ var ManageZik = (function() {
             this.setRate(index, 0);
         },
         setPlayable(index, mode) {
-            setZik(index, 3, mode);
+            setZik(index, 4, mode);
         },
         isPlayable(index) {
-            return this.getZik(index)[3];
-        },
-        setTime(index, time) {
-            setZik(index, 4, time);
+            return this.getZik(index)[4];
         },
         setAudio(index, audio) {
             setZik(index, 5, audio);
@@ -72,7 +112,13 @@ var DESIGN = {
     COLOR_VOLUME: {
         "bg": "black",
         "fg": "white",
-        "button": "red",
+        "button": [
+            "rgb(0, 0, 255)",
+            "rgb(0, 255, 255)",
+            "rgb(0, 255, 0)",
+            "rgb(255, 255, 0)",
+            "rgb(255, 0, 0)"
+        ],
         "_button": "grey"
     },
     COLOR_CONTROLLER: {
@@ -142,6 +188,10 @@ class Lecteur {
         let barres = document.getElementsByClassName("barre");
         for (let i = 0; i < barres.length; i++) {
             let barre = barres[i];
+            if (barre.classList.contains("volume") || barre.classList.contains("rate")) {
+                barre.style.flexDirection = "column";
+                barre.style.marginTop = "1em";
+            }
             barre.style.width = "10%";
             barre.style.border = "1px solid black";
             barre.style.display = "flex";
@@ -156,6 +206,7 @@ class Lecteur {
 
     static styleMusik() {
         let musicos = document.getElementsByClassName("musik");
+        musicos[0].style.marginTop = "2em";
         for (let i = 0; i < musicos.length; i++) {
             let mzik = musicos[i];
             mzik.style.backgroundColor = "black";
@@ -172,10 +223,79 @@ class Lecteur {
         }
     }
 
+    static styleProgressBar() {
+        var progs = document.getElementsByClassName("prog");
+        for (let i = 0; i < progs.length; i++) {
+            progs[i].style.width = "50%";
+            progs[i].style.height = "0.5em";
+            progs[i].style.borderRadius = "0 50px 50px 0";
+            progs[i].style.backgroundColor = "lightgray";
+            progs[i].style.position = "relative";
+        }
+    }
+
+    static styleMove() {
+        var moves = document.getElementsByClassName("move");
+        for (let i = 0; i < moves.length; i++) {
+            moves[i].style.width = "0%";
+            moves[i].style.left = "0";
+            moves[i].style.top = "0";
+            moves[i].style.padding = "0";
+            moves[i].style.height = "100%";
+            moves[i].style.borderRadius = "0 50px 50px 0";
+            moves[i].style.backgroundColor = "black";
+            moves[i].style.position = "absolute";
+        }
+    }
+
+    static styleTitres() {
+        var names = document.getElementsByClassName("name");
+        for (let i = 0; i < names.length; i++) {
+            names[i].style.width = "100%";
+            names[i].style.left = "0";
+            names[i].style.top = "0";
+            names[i].style.height = "1em";
+            names[i].style.textAlign = "center";
+            names[i].style.position = "absolute";
+            names[i].style.margin = "auto";
+            names[i].style.marginTop = "0";
+        }
+    }
+
+
+    static styleBody() {
+        document.body.style.userSelect = "none";
+        document.body.style.webkitUserSelect = "none";
+    }
+
+    static styleContent() {
+        var contents = document.getElementsByClassName("content");
+        for (let i = 0; i < contents.length; i++) {
+            contents[i].style.display = "flex";
+            contents[i].style.flexDirection = "column";
+            contents[i].style.width = "calc(70% - 1em)";
+            contents[i].style.padding = "1em 0.5em 0.5em 0.5em";
+            contents[i].style.marginTop = "1em";
+            contents[i].style.alignItems = "center";
+        }
+    }
+
     addRecord(source) {
         var container = document.getElementById("audios");
         var musik = Lecteur.declareElt("div", "musik");
         var titre = Lecteur.declareElt("span", "name");
+        var author = Lecteur.declareElt("span", "author");
+        author.style.position = "absolute";
+        author.style.top = "0";
+        author.style.left = "2em";
+        author.style.color = "red";
+        author.style.minWidth = "7em";
+        author.style.textAlign = "center";
+        author.style.backgroundColor = "black";
+        author.style.borderRadius = "25px";
+        author.style.padding = "0.2em";
+        author.style.transform = "rotate(-30deg) translateX(-50%) translateY(-100%)";
+
         var content = Lecteur.declareElt("div", "content");
         var prog = Lecteur.declareElt("div", "prog");
         var moveTime = Lecteur.declareElt("div", "move time");
@@ -243,6 +363,7 @@ class Lecteur {
 
         rate.appendChild(frate);
         musik.appendChild(titre);
+        musik.appendChild(author);
         musik.appendChild(content);
         musik.appendChild(volume);
         musik.appendChild(rate);
@@ -297,6 +418,34 @@ class Lecteur {
         }
     }
 
+    static styleDesign() {
+        let adv = document.getElementsByClassName("design");
+        for (let i = 0; i < adv.length; i++) {
+            adv[i].style.width = "30%";
+            adv[i].style.height = "90%";
+            adv[i].style.display = "flex";
+            adv[i].style.flexDirection = "column";
+            adv[i].style.alignItems = "center";
+            adv[i].style.justifyContent = "space-evenly";
+            adv[i].style.padding = "0.5em";
+            let children = adv[i].children;
+            let begin = 0;
+            for (let j = 0; j < children.length; j++) {
+                children[j].style.height = "calc(100% / 6)";
+                if (children[j].tagName == "BUTTON") {
+                    if (begin == 0)
+                        begin = j;
+                    children[j].style.border = "none";
+                    children[j].style.backgroundColor = DESIGN.COLOR_VOLUME._button;
+                    children[j].style.width = "100%";
+                    children[j].style.borderBottom = "1px solid black";
+                    children[j].style.cursor = "pointer";
+                    children[j].style.borderRadius = "5%";
+                }
+            }
+        }
+    }
+
     static styleSvg(elt, image_name) {
         elt.style.backgroundPosition = "0 0";
         elt.style.backgroundSize = "100% 100%";
@@ -304,7 +453,9 @@ class Lecteur {
         elt.style.height = "3em";
         elt.style.border = "none";
         elt.style.backgroundRepeat = "no-repeat";
-        elt.style.backgroundImage = "url(\"resources/" + image_name + ".svg\")";
+        console.log(image_name);
+        elt.style.backgroundImage = image_name;
+
     }
 
     static sToTime(t) {
@@ -330,7 +481,7 @@ class Lecteur {
         let volume = (parseInt(element.value, 10) * 20);
         document.getElementsByClassName("getVol")[index].textContent = volume + "%";
         document.getElementsByClassName("zik")[index].volume = volume / 100;
-        element.style.backgroundColor = DESIGN.COLOR_VOLUME.button;
+        element.style.backgroundColor = DESIGN.COLOR_VOLUME.button[jbtn - 1];
         for (let k = 1; k <= 5; k++) {
             if (jbtn != k)
                 document.getElementsByClassName("V" + k)[index].style.backgroundColor = DESIGN.COLOR_VOLUME._button;
@@ -345,13 +496,13 @@ class Lecteur {
         if (ManageZik.getStart(index)) {
             audio.pause();
             ManageZik.setStart(index, false);
-            image = "start";
+            image = 'start';
         } else {
             ManageZik.setStart(index, true);
             audio.play();
-            image = "pause";
+            image = 'pause';
         }
-        Lecteur.styleSvg(elt, image);
+        Lecteur.styleSvg(elt, Svg[image]);
     }
 
     rating(event, i, direction) {
@@ -411,17 +562,17 @@ class Lecteur {
         let glob = ManageZik.getAudio(index);
         var duration = glob.duration;
         var current = glob.currentTime;
-        ManageZik.setTime(index, current);
         var percent = Math.ceil((current / duration) * 100);
         if (current == duration) {
             let elt = glob;
             setTimeout(() => {
                 ManageZik.setStart(index, false);
                 elt.currentTime = 0;
-                Lecteur.styleSvg(document.getElementsByClassName("play")[index], "start");
+                Lecteur.styleSvg(document.getElementsByClassName("play")[index], Svg.start);
             }, 500);
         }
-        document.getElementsByClassName("time")[index].style.width = percent + "%";
+        let barre_time = document.getElementsByClassName("time")[index];
+        barre_time.style.width = percent + "%";
         Lecteur.formatTime(index, current, duration);
         let change_color = DESIGN.COLOR_TIME.DEFAULT;
         let vars = Lecteur.getStepFromColorTime();
@@ -432,7 +583,7 @@ class Lecteur {
                 }
             }
         }
-        document.getElementsByClassName("time")[index].style.backgroundColor = change_color;
+        barre_time.style.backgroundColor = change_color;
     }
 
     static styleContainer() {
@@ -491,13 +642,22 @@ class Lecteur {
         }
     }
 
-    init() {
+    static allStyles() {
         Lecteur.styleMusik();
         Lecteur.styleContainer();
         Lecteur.styleAudios();
         Lecteur.styleAdvanced();
         Lecteur.styleBarre();
+        Lecteur.styleProgressBar();
+        Lecteur.styleMove();
+        Lecteur.styleTitres();
+        Lecteur.styleDesign();
+        Lecteur.styleContent();
+        Lecteur.styleBody();
+    }
 
+    init() {
+        Lecteur.allStyles();
         for (let i = 0; i < document.getElementsByClassName("musik").length; i++) {
             ManageZik.setStart(i, false);
             ManageZik.setRate(i, 1);
@@ -507,8 +667,12 @@ class Lecteur {
             let namus = ManageZik.getAudio(i).attributes.src.value.split(".")[0];
             let last = namus.split("/").length;
             let the_name = namus.split("/")[last - 1];
+            let author = the_name.split(" - ")[0];
+            ManageZik.setAuthor(i, author);
+            the_name = the_name.split(" - ")[1];
             ManageZik.setTitre(i, the_name);
             document.getElementsByClassName("name")[i].textContent = the_name;
+            document.getElementsByClassName("author")[i].textContent = author;
 
             document.getElementsByClassName("rM")[i].addEventListener("click", this.rating.bind(event, i, '-'));
             document.getElementsByClassName("rP")[i].addEventListener("click", this.rating.bind(event, i, '+'));
@@ -522,18 +686,18 @@ class Lecteur {
             for (let controller of[
                     ["M60", "moins60", -60], ["M10", "moins10", -10], ["P10", "plus10", 10], ["P60", "plus60", 60]
                 ]) {
-                Lecteur.styleSvg(document.getElementsByClassName(controller[0])[i], controller[1]);
+                Lecteur.styleSvg(document.getElementsByClassName(controller[0])[i], Svg[controller[1]]);
                 document.getElementsByClassName(controller[0])[i].addEventListener("click", this.moveTime.bind(event, i, controller[2]));
             }
             let volumer = document.getElementsByClassName("volume")[i];
             volumer.style.backgroundColor = DESIGN.COLOR_VOLUME.bg;
             volumer.style.color = DESIGN.COLOR_VOLUME.fg;
-            document.getElementsByClassName("V1")[i].style.backgroundColor = DESIGN.COLOR_VOLUME.button;
+            document.getElementsByClassName("V1")[i].style.backgroundColor = DESIGN.COLOR_VOLUME.button[4];
             for (let j = 1; j <= 5; j++) {
                 document.getElementsByClassName("V" + j)[i].addEventListener("click", this.reguleVolume.bind(event, i, j));
             }
             let player = document.getElementsByClassName("play")[i];
-            Lecteur.styleSvg(player, "start");
+            Lecteur.styleSvg(player, Svg.start);
             player.addEventListener("click", this.myplay.bind(event, i));
             ManageZik.getAudio(i).addEventListener("timeupdate", this.timeupdate.bind(event, i));
         }
