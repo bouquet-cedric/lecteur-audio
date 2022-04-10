@@ -1,5 +1,41 @@
 /* jshint esversion: 6 */
 
+var CssRules = (function() {
+    let createStyle = false;
+    return {
+        addRules: function() {
+            if (!createStyle) {
+                let style = document.createElement("style");
+                for (let i in this) {
+                    if (i.substring(0, 4) == "rule")
+                        style.innerHTML += this[i];
+                }
+                document.body.appendChild(style);
+            }
+        },
+        rule1: "::-webkit-scrollbar {width: 14px;height: 14px;background-color: aqua 0 0 repeat;}",
+        rule2: "::-webkit-scrollbar-track-piece {" +
+            "/* Fond */" +
+            "background: transparent none;" +
+            "border: solid 4px transparent;" +
+            "border-right-width: 8px;" +
+            "margin: 4px;" +
+            "box-shadow: inset 1px 1px 0 0 rgb(137, 131, 117), inset -1px -1px 0 0 rgb(224, 220, 210);}",
+        rule3: "::-webkit-scrollbar-track-piece:horizontal {/* Fond pour la barre du bas */border-right-width: 4px;border-bottom-width: 8px;}",
+        rule4: "::-webkit-scrollbar-thumb {/* Barre */" +
+            "border: solid 0 transparent;" +
+            "border-right-width: 4px;" +
+            "border-radius: 5px;" +
+            "border-top-right-radius: 9px 5px;" +
+            "border-bottom-right-radius: 9px 5px;" +
+            "box-shadow: inset 0 0 0 1px rgb(79, 79, 79), inset 0 0 0 6px rgb(102, 102, 102);}",
+        rule5: "::-webkit-scrollbar-thumb:hover {/* Barre */box-shadow: inset 0 0 0 1px rgb(90, 90, 90), inset 0 0 0 6px rgb(110, 110, 110);}",
+        rule6: "::-webkit-scrollbar-thumb:horizontal {/* Barre du bas */border-right-width: 0;border-bottom-width: 4px;" +
+            "border-top-right-radius: 5px;border-bottom-right-radius: 5px 9px;border-bottom-left-radius: 5px 9px;}",
+        rule7: "::-webkit-scrollbar-corner {/* Coin de la fenêtre */background: #bfb6a3 0 0 no-repeat;}"
+    };
+})();
+
 var Svg = (function() {
     return {
         start: "url(\"data:image/svg+xml;utf8," +
@@ -453,7 +489,6 @@ class Lecteur {
         elt.style.height = "3em";
         elt.style.border = "none";
         elt.style.backgroundRepeat = "no-repeat";
-        console.log(image_name);
         elt.style.backgroundImage = image_name;
 
     }
@@ -588,12 +623,12 @@ class Lecteur {
 
     static styleContainer() {
         var container = document.getElementById("ctnr");
-        container.style.border = "1px solid black";
+        // container.style.border = "1px solid black";
         container.style.width = "50%";
         container.style.height = "95vmin";
         container.style.overflowY = "scroll";
         container.style.overflowX = "hidden";
-        container.style.margin = "auto";
+        // container.style.margin = "auto";
     }
 
     static styleAudios() {
@@ -654,6 +689,8 @@ class Lecteur {
         Lecteur.styleDesign();
         Lecteur.styleContent();
         Lecteur.styleBody();
+        CssRules.addRules();
+
     }
 
     init() {
