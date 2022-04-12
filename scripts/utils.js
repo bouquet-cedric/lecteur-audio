@@ -1,8 +1,19 @@
 /* jshint esversion: 6 */
 
+/**
+ * Génère les règles css pour l'apparence des scrolls-bar et les infos-bulles
+ * @namespace
+ * @class CssRules
+ */
 var CssRules = (function() {
     let style = null;
     return {
+        /**
+         * Ajoute toutes les règles qui respectent le format rule*
+         * @memberof CssRules
+         * @instance
+         * @see Lecteur.allStyles
+         */
         addRules: function() {
             if (style == null)
                 style = document.createElement("style");
@@ -12,13 +23,29 @@ var CssRules = (function() {
             }
             document.body.appendChild(style);
         },
+        /**
+         * Ajoute la gestion css des infos-bulles sur les élements span.titleControl
+         * @memberof CssRules
+         * @instance
+         * @see Lecteur.allStyles
+         */
         addTitleControllerRules: function() {
             if (style == null)
                 style = document.createElement("style");
             style.innerHTML += "span.titleControl{display:none;position:absolute;bottom:0;left:0;font-size:x-small;transform:translateY(120%);width:100%;text-align:center;background-color:white;border-radius:25px;}" +
                 ".advanced>button:not(.play):hover span.titleControl{display:inherit;}";
         },
+        /**
+         * Ajoute la règle sur le webkit-scrollbar
+         * @memberof CssRules
+         * @instance
+         */
         rule1: "::-webkit-scrollbar {width: 14px;height: 14px;background-color: aqua 0 0 repeat;}",
+        /**
+         * Ajoute la règle sur le fond du webkit-scrollbar
+         * @memberof CssRules
+         * @instance
+         */
         rule2: "::-webkit-scrollbar-track-piece {" +
             "/* Fond */" +
             "background: transparent none;" +
@@ -26,190 +53,502 @@ var CssRules = (function() {
             "border-right-width: 8px;" +
             "margin: 4px;" +
             "box-shadow: inset 1px 1px 0 0 rgb(137, 131, 117), inset -1px -1px 0 0 rgb(224, 220, 210);}",
-        rule3: "::-webkit-scrollbar-track-piece:horizontal {/* Fond pour la barre du bas */border-right-width: 4px;border-bottom-width: 8px;}",
-        rule4: "::-webkit-scrollbar-thumb {/* Barre */" +
+        /**
+         * Ajoute la règle sur le fond pour la barre inférieure du webkit-scrollbar
+         * @memberof CssRules
+         * @instance
+         */
+        rule3: "::-webkit-scrollbar-track-piece:horizontal {border-right-width: 4px;border-bottom-width: 8px;}",
+        /**
+         * Ajoute la règle pour la barre du webkit-scrollbar
+         * @memberof CssRules
+         * @instance
+         */
+        rule4: "::-webkit-scrollbar-thumb {" +
             "border: solid 0 transparent;" +
             "border-right-width: 4px;" +
             "border-radius: 5px;" +
             "border-top-right-radius: 9px 5px;" +
             "border-bottom-right-radius: 9px 5px;" +
             "box-shadow: inset 0 0 0 1px rgb(79, 79, 79), inset 0 0 0 6px rgb(102, 102, 102);}",
-        rule5: "::-webkit-scrollbar-thumb:hover {/* Barre */box-shadow: inset 0 0 0 1px rgb(90, 90, 90), inset 0 0 0 6px rgb(110, 110, 110);}",
-        rule6: "::-webkit-scrollbar-thumb:horizontal {/* Barre du bas */border-right-width: 0;border-bottom-width: 4px;" +
+        /**
+         * Ajoute la règle pour le box-shadow de la barre du webkit-scrollbar
+         * @memberof CssRules
+         * @instance
+         */
+        rule5: "::-webkit-scrollbar-thumb:hover {box-shadow: inset 0 0 0 1px rgb(90, 90, 90), inset 0 0 0 6px rgb(110, 110, 110);}",
+        /**
+         * Ajoute la règle pour le contrôleur de la barre du webkit-scrollbar
+         * @memberof CssRules
+         * @instance
+         */
+        rule6: "::-webkit-scrollbar-thumb:horizontal {border-right-width: 0;border-bottom-width: 4px;" +
             "border-top-right-radius: 5px;border-bottom-right-radius: 5px 9px;border-bottom-left-radius: 5px 9px;}",
-        rule7: "::-webkit-scrollbar-corner {/* Coin de la fenêtre */background: #bfb6a3 0 0 no-repeat;}"
+        /**
+         * Ajoute la règle pour le coind supérieure de la barre du webkit-scrollbar
+         * @memberof CssRules
+         * @instance
+         */
+        rule7: "::-webkit-scrollbar-corner {background: #bfb6a3 0 0 no-repeat;}"
     };
 })();
 
-var Svg = (function() {
-    return {
-        start: "url(\"data:image/svg+xml;utf8," +
-            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-            "<circle cx='200' cy='200' r='200' fill='transparent'/>" +
-            "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='green' stroke='black'/></svg>\")",
-        moins10: "url(\"data:image/svg+xml;utf8," +
-            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-            "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-            "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='red' stroke='black' />" +
-            "<path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill = 'orange' stroke = 'black' /></svg>\")",
-        moins60: "url(\"data:image/svg+xml;utf8," +
-            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-            "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-            "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='red' stroke='black'/>" +
-            "<path d='M260,100 Q210,200,260,300 L235,300 L60,200 L235,100 Z' fill='white' stroke='black'/>" +
-            "<path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill='orange' stroke='black'/></svg>\")",
-        plus10: "url(\"data:image/svg+xml;utf8," +
-            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-            "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-            "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
-            "<path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/></svg>\")",
-        plus60: "url(\"data:image/svg+xml;utf8," +
-            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-            "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-            "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
-            "<path d='M130,100 Q180,200,130,300 L155,300 L330,200 L155,100 Z' fill='white' stroke='black'/>" +
-            "<path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/></svg>\")",
-        pause: "url(\"data:image/svg+xml;utf8," +
-            "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-            "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-            "<path d='M100,100 Q150,200,100,300 L170,300  Q120,200,170,100 Z' fill='red' stroke='black'/>" +
-            "<path d='M230,100 Q280,200,230,300 L300,300  Q250,200,300,100 Z' fill='red' stroke='black'/></svg>\")"
-    };
-})();
+/**
+ * Stocke les images svg pour les arrières-plans des contrôleurs de la musique
+ * @namespace
+ * @global
+ * @property {string} SVG.start Logo play
+ * @property {string} SVG.moins10 Logo moins 10 secondes
+ * @property {string} SVG.moins60 Logo moins 1 minute
+ * @property {string} SVG.plus10 Logo plus 10 secondes
+ * @property {string} SVG.plus60 Logo plus 1 minute
+ * @property {string} SVG.pause Logo pause
+ */
+var SVG = {
+    start: "url(\"data:image/svg+xml;utf8," +
+        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "<circle cx='200' cy='200' r='200' fill='transparent'/>" +
+        "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='green' stroke='black'/></svg>\")",
+    moins10: "url(\"data:image/svg+xml;utf8," +
+        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "<circle cx='200' cy='200' r='200' fill='transparent' />" +
+        "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='red' stroke='black' />" +
+        "<path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill = 'orange' stroke = 'black' /></svg>\")",
+    moins60: "url(\"data:image/svg+xml;utf8," +
+        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "<circle cx='200' cy='200' r='200' fill='transparent' />" +
+        "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='red' stroke='black'/>" +
+        "<path d='M260,100 Q210,200,260,300 L235,300 L60,200 L235,100 Z' fill='white' stroke='black'/>" +
+        "<path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill='orange' stroke='black'/></svg>\")",
+    plus10: "url(\"data:image/svg+xml;utf8," +
+        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "<circle cx='200' cy='200' r='200' fill='transparent' />" +
+        "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
+        "<path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/></svg>\")",
+    plus60: "url(\"data:image/svg+xml;utf8," +
+        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "<circle cx='200' cy='200' r='200' fill='transparent' />" +
+        "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
+        "<path d='M130,100 Q180,200,130,300 L155,300 L330,200 L155,100 Z' fill='white' stroke='black'/>" +
+        "<path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/></svg>\")",
+    pause: "url(\"data:image/svg+xml;utf8," +
+        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "<circle cx='200' cy='200' r='200' fill='transparent' />" +
+        "<path d='M100,100 Q150,200,100,300 L170,300  Q120,200,170,100 Z' fill='red' stroke='black'/>" +
+        "<path d='M230,100 Q280,200,230,300 L300,300  Q250,200,300,100 Z' fill='red' stroke='black'/></svg>\")"
+};
 
+/**
+ * Classe statique permettant de contrôler la gestion du flux audio, volume, looping, vitesse de lecture, ...
+ * @namespace
+ * @class ManageZik
+ */
 var ManageZik = (function() {
+    /**
+     * @property Ziks
+     * @memberof ManageZik Ziks - Tableau de sons
+     */
     var Ziks = [];
 
+    /**
+     * Si 'indexZik' dans le tableau n'existe pas, en créé un, et ajoute l'élement 'elt' donné à la position 'index' 
+     * @function setZik
+     * @param {number} indexZik index dans le tableau
+     * @param {number} index index dans l'index de ce tableau
+     * @param {object} elt valeur à ajouter
+     * @example setZik(0,0,true) => Ziks = [[0,0,"impossible"]] # on a ajouté le titre "impossible" à la position 0 du tableau
+     * @instance
+     * @see ManageZik#setAudio
+     * @see ManageZik#setAuthor
+     * @see ManageZik#setLoop
+     * @see ManageZik#setPlayable
+     * @see ManageZik#setRate
+     * @see ManageZik#setStart
+     * @see ManageZik#setTitre
+     * @memberof ManageZik
+     */
     function setZik(indexZik, index, elt) {
         if (Ziks[indexZik] == undefined)
             Ziks[indexZik] = [];
         Ziks[indexZik][index] = elt;
     }
+
+    /**
+     * Récupère l'audio depuis une position dans le tableau
+     * @function getZik
+     * @param {number} index position donnée
+     * @returns {Object} Liste sous la forme [titre, auteur, start, rate, playable, audio, loop] 
+     * @memberof ManageZik
+     * @see ManageZik#getAudio
+     * @see ManageZik#getAuthor
+     * @see ManageZik#getLoop
+     * @see ManageZik#isPlayable
+     * @see ManageZik#getRate
+     * @see ManageZik#getStart
+     * @see ManageZik#getTitre
+     * @instance
+     */
+    function getZik(index) {
+        return Ziks[index];
+    }
     return {
+        /**
+         * retourne le tableau
+         * @function getZiks
+         * @returns {object} Ziks - Tableau contenant les audios
+         * @memberof ManageZik
+         * @instance
+         */
         getZiks: function() {
             return Ziks;
         },
-        addZiks: function(titre, start, rate) {
-            Ziks.push([titre, start, rate]);
-        },
+        /**
+         * Met à jour le titre à la position indiquée dans le tableau
+         * @function setTitre
+         * @param {number} index position dans le tableau
+         * @param {string} titre titre de la musique
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#setZik
+         */
         setTitre: function(index, titre) {
             setZik(index, 0, titre);
         },
+        /**
+         * Récupère le titre depuis une position donnée
+         * @function getTitre
+         * @param {number} index position dans le tableau
+         * @returns {string} titre de la musique
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#getZik
+         */
         getTitre: function(index) {
-            return this.getZik(index)[0];
+            return getZik(index)[0];
         },
+        /**
+         * Met à jour le nom de l'auteur à la position indiquée dans le tableau
+         * @function setAuthor
+         * @param {number} index position dans le tableau
+         * @param {string} author auteur de la musique 
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#setZik
+         */
         setAuthor: function(index, author) {
             setZik(index, 1, author);
         },
-        getAuthor: function(index, author) {
-            return this.getZik(index)[1];
+        /**
+         * Récupère le nom de l'auteur depuis une position donnée
+         * @function getAuthor
+         * @returns {string} Nom de l'auteur
+         * @param {number} index position dans le tableau
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#getZik
+         */
+        getAuthor: function(index) {
+            return getZik(index)[1];
         },
+        /**
+         * Met à jour le paramèrte start à la position indiquée dans le tableau
+         * @function setStart
+         * @param {number} index position dans le tableau
+         * @param {Boolean} start indique si la musique a commencé ou non 
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#setZik
+         */
         setStart: function(index, start) {
             setZik(index, 2, start);
         },
+        /**
+         * Récupère le paramètre start depuis une position donnée
+         * @function getStart
+         * @param {number} index position dans le tableau
+         * @returns {string} Si start est vrai, alors la musique est en cours, sinon non
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#getZik
+         */
         getStart: function(index) {
-            return this.getZik(index)[2];
+            return getZik(index)[2];
         },
+        /**
+         * Met à jour la vitesse de lecture à la position indiquée dans le tableau
+         * @function setRate
+         * @param {number} index position dans le tableau
+         * @param {number} rate vitesse de lecture (compris entre 0.25 et 2.75)
+         * @instance
+         * @memberof ManageZik
+         * @see ManageZik#setZik
+         */
         setRate: function(index, rate) {
             setZik(index, 3, rate);
         },
+        /**
+         * Récupère la vitesse de lecture depuis une position donnée
+         * @function getRate
+         * @param {number} index position dans le tableau
+         * @returns {number} Vitesse de lecture 
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#getZik
+         */
         getRate: function(index) {
-            return this.getZik(index)[3];
+            return getZik(index)[3];
         },
-        getZik: function(index) {
-            return Ziks[index];
-        },
+        /**
+         * Liste toutes les musiques dont le titre commence par la lettre passée en paramètre
+         * @function getTitlesByLetter
+         * @param {string} letter Première lettre
+         * @returns {object} liste d'object audio
+         * @memberof ManageZik
+         * @instance
+         */
         getTitlesByLetter: function(letter) {
             let res = [];
-            for (let i = 0; i < this.getZiks().length; i++) {
+            for (let i = 0; i < getZiks().length; i++) {
                 if (this.getTitre(i) != "" && this.isPlayable(i) && this.getTitre(i)[0].toLowerCase() == letter.toLowerCase())
-                    res.push(this.getZik(i));
+                    res.push(getZik(i));
             }
             return res;
         },
+        /**
+         * Supprime les attributs titre, start et rate depuis une position dans le tableau
+         * @function removeZik
+         * @param {number} index position donnée
+         * @instance
+         * @memberof ManageZik
+         * @see Lecteur#checkNameZik
+         */
         removeZik: function(index) {
             this.setTitre(index, "");
             this.setStart(index, false);
             this.setRate(index, 0);
         },
+        /**
+         * Met à jour la jouabilité d'un son depuis une position dans le tableau
+         * @function setPlayable
+         * @param {number} index position donnée
+         * @param {Boolean} mode définit si le son existe et est jouable
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#setZik
+         */
         setPlayable: function(index, mode) {
             setZik(index, 4, mode);
         },
+        /**
+         * Permet de savoir si le son donné depuis une position dans le tableau est jouable ou non
+         * @function isPlayable
+         * @returns {Boolean} Vrai si le son est jouable, faux sinon
+         * @param {number} index position dans le tableau
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#getZik
+         */
         isPlayable: function(index) {
-            return this.getZik(index)[4];
+            return getZik(index)[4];
         },
+        /**
+         * Met à jour le son depuis la position indiquée dans le tableau
+         * @function setAudio
+         * @param {number} index position dans le tableau
+         * @param {HTMLAudioElement} audio balise HTML <audio> 
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#setZik
+         */
         setAudio: function(index, audio) {
             setZik(index, 5, audio);
         },
-        getAudio: function(index, audio) {
-            return this.getZik(index)[5];
+        /**
+         * Récupère le son depuis une position donnée dans le tableau
+         * @function getAudio
+         * @returns {HTMLAudioElement} balise HTML <audio>
+         * @param {number} index position dans le tableau
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#getZik
+         */
+        getAudio: function(index) {
+            return getZik(index)[5];
         },
+        /**
+         * Met à jour le comportement de l'audio depuis une position dans le tableau
+         * @function setLoop
+         * @param {number} index position dans le tableau
+         * @param {Boolean} loop indique si la musique doit se jouer en boucle ou non
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#setZik
+         */
         setLoop: function(index, loop) {
             setZik(index, 6, loop);
         },
+        /**
+         * Récupère le comportement de l'audio depuis une position donnée dans le tableau
+         * @function getLoop
+         * @returns {Boolean} Vrai si le son est jouable en boucle, faux sinon
+         * @param {number} index position dans le tableau
+         * @memberof ManageZik
+         * @instance
+         * @see ManageZik#getZik
+         */
         getLoop: function(index) {
-            return this.getZik(index)[6];
+            return getZik(index)[6];
         }
     };
 })();
 
+/**
+ * @namespace
+ * @global
+ * @property {Number} FREQ_RATE Ecart entre les différentes vitesses de lecture
+ */
 var FREQ_RATE = 0.25;
 
+/**
+ * @namespace
+ * @global
+ * @property {Boolean} PROGRESS_BAR_STYLED Définit l'utilisation ou non d'une scroll-bar personnalisée
+ */
+var PROGRESS_BAR_STYLED = true;
+
+/**
+ * @namespace
+ * @global
+ * @property {object} COLOR_VOLUME              - Couleurs pour la barre de volume 
+ * @see Lecteur.styleDesign
+ * @see Lecteur.reguleVolume
+ * @see Lecteur.show
+ * @property {string} COLOR_VOLUME.bg           - arrière-plan du bloc
+ * @property {string} COLOR_VOLUME.fg           - couleur de texte du bloc
+ * @property {string} COLOR_VOLUME.button       - liste d'arrière plan pour chacun des boutons de volumes
+ * @property {string} COLOR_VOLUME._button      - arrière-plan des boutons par défaut 
+ * @property {object} COLOR_CONTROLLER          - Couleurs pour les contrôleurs audio
+ * @see Lecteur.styleAdvanced
+ * @property {string} COLOR_CONTROLLER.bg       - arrière-plan du bloc
+ * @property {string} COLOR_CONTROLLER.button   - arrière-plan des boutons
+ * @property {object} COLOR_RATE                - Couleurs pour le design de la vitesse de lecture
+ * @see Lecteur#addRecord
+ * @property {string} COLOR_RATE.bg             - arrière-plan du bloc
+ * @property {string} COLOR_RATE.fg             - couleur de texte du bloc
+ * @property {string} COLOR_RATE._button        - arrière-plan des boutons
+ * @property {object} COLOR_TIME                - Couleur de fond de la barre de progression de la musique
+ * @property {string} COLOR_TIME.DEFAULT        - Couleur par défault 
+ * @see Lecteur.setColorTimeDefaultValue
+ * @property {string} COLOR_TIME.TIME_X         - Couleur au temps (X*100) / N, avec N le nombre de couleurs données
+ */
 var DESIGN = {
     COLOR_VOLUME: {
-        "bg": "black",
-        "fg": "white",
-        "button": [
+        bg: "black",
+        fg: "white",
+        button: [
             "rgb(0, 0, 255)",
             "rgb(0, 255, 255)",
             "rgb(0, 255, 0)",
             "rgb(255, 255, 0)",
             "rgb(255, 0, 0)"
         ],
-        "_button": "grey"
+        _button: "grey"
     },
     COLOR_CONTROLLER: {
-        "bg": "black",
-        "button": "white"
+        bg: "black",
+        button: "white"
     },
     COLOR_RATE: {
-        "bg": "black",
-        "fg": "white",
-        "_button": "grey"
+        bg: "black",
+        fg: "white",
+        _button: "grey"
     },
     COLOR_TIME: {
-        "DEFAULT": "black",
-        "TIME_0": "purple",
-        "TIME_10": "#1044AA",
-        "TIME_20": "#0265FF",
-        "TIME_30": "#006599",
-        "TIME_40": "#669801",
-        "TIME_50": "#99CC01",
-        "TIME_60": "yellow",
-        "TIME_70": "#FFCC11",
-        "TIME_80": "#FE9900",
-        "TIME_90": "#FF6501"
+        DEFAULT: "black",
+        TIME_0: "purple",
+        TIME_10: "#1044AA",
+        TIME_20: "#0265FF",
+        TIME_30: "#006599",
+        TIME_40: "#669801",
+        TIME_50: "#99CC01",
+        TIME_60: "yellow",
+        TIME_70: "#FFCC11",
+        TIME_80: "#FE9900",
+        TIME_90: "#FF6501"
     }
 };
 
-var PROGRESS_BAR_STYLED = true;
-
+/**
+ * @namespace
+ * @class Lecteur
+ */
 class Lecteur {
 
-    constructor() {
+    /**
+     * Constructeur de la classe lecteur<br>
+     * Ajoute les blocs HTML nécessaires à l'utilisation de la librairie
+     * @function build
+     * @memberof Lecteur
+     * @instance
+     */
+    build() {
         let glob = document;
         if (glob != null)
             glob.write('<div id="ctnr"><div id="audios"></div></div>');
     }
 
+    constructor() {
+        this.build();
+    }
+
+    /**
+     * Spécifie si on utilise la scroll-bar personnalisé ou non
+     * @function useStyleProgressBar
+     * @memberof Lecteur
+     * @static
+     * @instance
+     * @param {Boolean} boolean Vrai si on l'utilise, faux sinon
+     * @example Lecteur.useStyleProgressBar(true);
+     */
     static useStyleProgressBar(boolean) {
         PROGRESS_BAR_STYLED = boolean;
     }
 
+    /**
+     * Spécifie la couleur de fond à utiliser <br>
+       Si ce n'est pas "black", alors gardera la même couleur le long de la musique,<br>
+       sinon, changera la couleur toutes les x secondes 
+     * @function setColorTimeDefaultValue
+     * @memberof Lecteur
+     * @instance
+     * @static
+     * @param {string} value couleur de la barre de progression de la musique
+     * @see Lecteur.setColorTime
+     * @see DESIGN
+     */
     static setColorTimeDefaultValue(value) {
         DESIGN.COLOR_TIME.DEFAULT = value;
     }
 
+    /**
+     * Spécifie les couleurs à utiliser sur l'avancée de la musique<br>
+     * et recalcule, en fonction du nombre de couleurs, le temps pour chaque couleur.<br>
+     * Supprime l'effet de la variable DESIGN.COLOR_TIME.DEFAULT
+     * @function setColorTime
+     * @memberof Lecteur
+     * @instance
+     * @static
+     * @param {object} values Liste de couleurs sous forme de chaines de caractères
+     * @example Lecteur.setColorTime([
+     "blue",
+     "green",
+     "yellow",
+     "red"
+    ]);
+    tous les quarts du temps de la musique, changera la couleur de fond.
+    * @see Lecteur.setColorTimeDefaultValue
+    * @see DESIGN
+    */
     static setColorTime(values) {
         DESIGN.COLOR_TIME.DEFAULT = "black";
         let step = parseInt(100 / values.length);
@@ -223,16 +562,26 @@ class Lecteur {
 
     }
 
-    static declareElt(elt, classe) {
+    /**
+     * Construit un nouveau noeud dont le type et les classes sont passés en paramètre 
+     * @function declareElt
+     * @instance
+     * @memberof Lecteur
+     * @param {string} elt Elément HTML
+     * @param {*} classes Classes à ajouter à l'élément
+     * @returns {Node} Noeud HTML
+     * @see Lecteur#addRecord
+     */
+    declareElt(elt, classes) {
         var e = document.createElement(elt);
         let nb = 1;
-        for (let i = 0; i < classe.length; i++) {
-            if (classe[i] == " ")
+        for (let i = 0; i < classes.length; i++) {
+            if (classes[i] == " ")
                 nb += 1;
         }
-        if (nb == 1) e.classList.add(classe);
+        if (nb == 1) e.classList.add(classes);
         else {
-            let all_classes = classe.split(" ");
+            let all_classes = classes.split(" ");
             for (let i = 0; i < all_classes.length; i++) {
                 e.classList.add(all_classes[i]);
             }
@@ -240,6 +589,14 @@ class Lecteur {
         return e;
     }
 
+    /**
+     * Stylise les noeud html de classe "barre"
+     * @function styleBarre
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.allStyles
+     */
     static styleBarre() {
         let barres = document.getElementsByClassName("barre");
         for (let i = 0; i < barres.length; i++) {
@@ -261,12 +618,20 @@ class Lecteur {
         }
     }
 
+    /**
+     * Design l'apparence globale des lecteurs audio
+     * @function styleMusik
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.allStyles
+     */
     static styleMusik() {
         let musicos = document.getElementsByClassName("musik");
         musicos[0].style.marginTop = "2em";
         for (let i = 0; i < musicos.length; i++) {
             let mzik = musicos[i];
-            mzik.style.backgroundColor = "black";
+            mzik.style.backgroundColor = DESIGN.COLOR_CONTROLLER.bg;
             mzik.style.color = "white";
             mzik.style.position = "relative";
             mzik.style.borderRadius = "25px";
@@ -280,6 +645,14 @@ class Lecteur {
         }
     }
 
+    /**
+     * Stylise les container des progress-bar 
+     * @function styleProgressBar
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.allStyles
+     */
     static styleProgressBar() {
         var progs = document.getElementsByClassName("prog");
         for (let i = 0; i < progs.length; i++) {
@@ -291,20 +664,36 @@ class Lecteur {
         }
     }
 
-    static styleMove() {
-        var moves = document.getElementsByClassName("move");
-        for (let i = 0; i < moves.length; i++) {
-            moves[i].style.width = "0%";
-            moves[i].style.left = "0";
-            moves[i].style.top = "0";
-            moves[i].style.padding = "0";
-            moves[i].style.height = "100%";
-            moves[i].style.borderRadius = "0 50px 50px 0";
-            moves[i].style.backgroundColor = "black";
-            moves[i].style.position = "absolute";
+    /**
+     * Stylise la progress-bar de temps interne
+     * @function styleTime
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.allStyles
+     */
+    static styleTime() {
+        var times = document.getElementsByClassName("time");
+        for (let i = 0; i < times.length; i++) {
+            times[i].style.width = "0%";
+            times[i].style.left = "0";
+            times[i].style.top = "0";
+            times[i].style.padding = "0";
+            times[i].style.height = "100%";
+            times[i].style.borderRadius = "0 50px 50px 0";
+            times[i].style.backgroundColor = DESIGN.COLOR_TIME.DEFAULT;
+            times[i].style.position = "absolute";
         }
     }
 
+    /**
+     * Stylise les titres des musiques
+     * @function styleTitres
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.allStyles
+     */
     static styleTitres() {
         var names = document.getElementsByClassName("name");
         for (let i = 0; i < names.length; i++) {
@@ -320,11 +709,27 @@ class Lecteur {
     }
 
 
+    /**
+     * Rend impossible la copie des textes sur le site
+     * @function styleBody
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.allStyles
+     */
     static styleBody() {
         document.body.style.userSelect = "none";
         document.body.style.webkitUserSelect = "none";
     }
 
+    /**
+     * Design le container global des contrôleurs de temps
+     * @function styleContent
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.allStyles
+     */
     static styleContent() {
         var contents = document.getElementsByClassName("content");
         for (let i = 0; i < contents.length; i++) {
@@ -337,11 +742,19 @@ class Lecteur {
         }
     }
 
+    /**
+     * Ajoute un son sur le site
+     * @function addRecord
+     * @instance
+     * @memberof Lecteur
+     * @param {string} source Chemin vers fichier son
+     * @see Lecteur#declareElt
+     */
     addRecord(source) {
         var container = document.getElementById("audios");
-        var musik = Lecteur.declareElt("div", "musik");
-        var titre = Lecteur.declareElt("span", "name");
-        var author = Lecteur.declareElt("span", "author");
+        var musik = this.declareElt("div", "musik");
+        var titre = this.declareElt("span", "name");
+        var author = this.declareElt("span", "author");
         author.style.position = "absolute";
         author.style.top = "0";
         author.style.left = "2em";
@@ -353,19 +766,19 @@ class Lecteur {
         author.style.padding = "0.2em";
         author.style.transform = "rotate(-30deg) translateX(-50%) translateY(-100%)";
 
-        var content = Lecteur.declareElt("div", "content");
-        var prog = Lecteur.declareElt("div", "prog");
-        var moveTime = Lecteur.declareElt("div", "move time");
-        prog.appendChild(moveTime);
-        var time_value = Lecteur.declareElt("span", "time_value");
-        var audio = Lecteur.declareElt("audio", "zik");
+        var content = this.declareElt("div", "content");
+        var prog = this.declareElt("div", "prog");
+        var time_process = this.declareElt("div", "time");
+        prog.appendChild(time_process);
+        var time_value = this.declareElt("span", "time_value");
+        var audio = this.declareElt("audio", "zik");
         audio.preload = "metadata";
         audio.src = source;
-        var adv = Lecteur.declareElt("div", "advanced");
+        var adv = this.declareElt("div", "advanced");
         let btns = "M60 M10 play P10 P60".split(" ");
         for (let i = 0; i < btns.length; i++) {
-            let tmp = Lecteur.declareElt("button", btns[i]);
-            let info_bulle = Lecteur.declareElt("span", "titleControl");
+            let tmp = this.declareElt("button", btns[i]);
+            let info_bulle = this.declareElt("span", "titleControl");
             tmp.style.cursor = "pointer";
             tmp.style.position = "relative";
             tmp.appendChild(info_bulle);
@@ -375,22 +788,22 @@ class Lecteur {
         content.appendChild(time_value);
         content.appendChild(audio);
         content.appendChild(adv);
-        var volume = Lecteur.declareElt("div", "volume barre");
-        var design = Lecteur.declareElt("div", "design");
+        var volume = this.declareElt("div", "volume barre");
+        var design = this.declareElt("div", "design");
         for (let i = 5; i > 0; i--) {
-            let tmp = Lecteur.declareElt("button", "V" + i);
+            let tmp = this.declareElt("button", "V" + i);
             tmp.value = "" + i;
             design.appendChild(tmp);
         }
-        design.appendChild(Lecteur.declareElt("span", "getVol"));
+        design.appendChild(this.declareElt("span", "getVol"));
         volume.appendChild(design);
-        var rate = Lecteur.declareElt("div", "rate barre");
-        var frate = Lecteur.declareElt("div", "range");
-        var frateD1 = Lecteur.declareElt("div", "frate_div");
-        var frateD2 = Lecteur.declareElt("div", "frate_div");
-        var frateVal = Lecteur.declareElt("div", "rVal");
-        var frateM = Lecteur.declareElt("div", "rM");
-        var frateP = Lecteur.declareElt("div", "rP");
+        var rate = this.declareElt("div", "rate barre");
+        var frate = this.declareElt("div", "range");
+        var frateD1 = this.declareElt("div", "frate_div");
+        var frateD2 = this.declareElt("div", "frate_div");
+        var frateVal = this.declareElt("div", "rVal");
+        var frateM = this.declareElt("div", "rM");
+        var frateP = this.declareElt("div", "rP");
         frate.style.display = "flex";
         frate.style.flexDirection = "column";
         frateD1.appendChild(frateM);
@@ -423,10 +836,10 @@ class Lecteur {
         frateVal.textContent = "1x";
         rate.appendChild(frate);
 
-        let divLoop = Lecteur.declareElt("div", "looping barre");
-        let loop = Lecteur.declareElt("input", "loop");
+        let divLoop = this.declareElt("div", "looping barre");
+        let loop = this.declareElt("input", "loop");
         loop.type = "checkbox";
-        let lblLoop = Lecteur.declareElt("label", "lbl_loop");
+        let lblLoop = this.declareElt("label", "lbl_loop");
         lblLoop.style.cursor = "pointer";
         divLoop.appendChild(loop);
         divLoop.appendChild(lblLoop);
@@ -438,7 +851,7 @@ class Lecteur {
         musik.appendChild(rate);
         musik.appendChild(divLoop);
 
-        let errorExistSound = Lecteur.declareElt("div", "error_sound");
+        let errorExistSound = this.declareElt("div", "error_sound");
         errorExistSound.style.display = "flex";
         errorExistSound.style.flexDirection = "column";
         errorExistSound.style.justifyContent = "center";
@@ -452,12 +865,12 @@ class Lecteur {
         errorExistSound.style.textAlign = "center";
         errorExistSound.style.backgroundColor = "red";
         errorExistSound.style.border = "2px solid black";
-        let text1 = Lecteur.declareElt("span", "err");
-        let text2 = Lecteur.declareElt("span", "err_name");
+        let text1 = this.declareElt("span", "err");
+        let text2 = this.declareElt("span", "err_name");
         text2.style.color = "black";
         text2.style.fontWeight = "bold";
         text2.style.padding = "0.5em";
-        let text3 = Lecteur.declareElt("span", "err err_list");
+        let text3 = this.declareElt("span", "err err_list");
         text1.textContent = "Le fichier ";
         text2.textContent = source;
         text3.textContent = " n'est pas écoutable";
@@ -468,6 +881,14 @@ class Lecteur {
         container.appendChild(musik);
     }
 
+    /**
+     * Stylise les boutons et le container des boutons contrôlant le temps
+     * @function styleAdvanced
+     * @instance
+     * @memberof Lecteur
+     * @static
+     * @see Lecteur.allStyles
+     */
     static styleAdvanced() {
         let adv = document.getElementsByClassName("advanced");
         for (let i = 0; i < adv.length; i++) {
@@ -489,6 +910,14 @@ class Lecteur {
         }
     }
 
+    /**
+     * Design la barre de volume
+     * @function styleDesign
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.allStyles
+     */
     static styleDesign() {
         let adv = document.getElementsByClassName("design");
         for (let i = 0; i < adv.length; i++) {
@@ -517,36 +946,71 @@ class Lecteur {
         }
     }
 
-    static styleSvg(elt, image_name) {
-        elt.style.backgroundPosition = "0 0";
-        elt.style.backgroundSize = "100% 100%";
-        elt.style.width = "3em";
-        elt.style.height = "3em";
-        elt.style.border = "none";
-        elt.style.backgroundRepeat = "no-repeat";
-        elt.style.backgroundImage = image_name;
+    /**
+     * Design un noeud passé en paramètre pour lui appliquer une image vectorielle en arrière-plan
+     * @function styleSvg
+     * @param {number} element Noeud à designer 
+     * @param {string} image_name URL d'arrière-plan
+     * @static
+     * @instance
+     * @memberof Lecteur
+     * @see SVG
+     */
+    static styleSvg(element, image_name) {
+        element.style.backgroundPosition = "0 0";
+        element.style.backgroundSize = "100% 100%";
+        element.style.width = "3em";
+        element.style.height = "3em";
+        element.style.border = "none";
+        element.style.backgroundRepeat = "no-repeat";
+        element.style.backgroundImage = image_name;
 
     }
 
-    static sToTime(t) {
-        return Lecteur.padZero(parseInt((t / (60 * 60)) % 24)) + ":" +
-            Lecteur.padZero(parseInt((t / (60)) % 60)) + ":" +
-            Lecteur.padZero(parseInt((t) % 60));
+    /**
+     * Fonction utilitaire qui convertit un nombre décimal en durée temporelle
+     * @function numberToTime
+     * @instance
+     * @memberof Lecteur
+     * @static
+     * @param {number} time Nombre décimal à convertir
+     * @returns {number} durée correspondante
+     * @see Lecteur.formatTime
+     */
+    static numberToTime(time) {
+        function padZero(v) {
+            return (v < 10) ? "0" + v : v;
+        }
+        return padZero(parseInt((time / (60 * 60)) % 24)) + ":" +
+            padZero(parseInt((time / (60)) % 60)) + ":" +
+            padZero(parseInt((time) % 60));
     }
 
-    static padZero(v) {
-        return (v < 10) ? "0" + v : v;
+    /**
+     * Evénement appelé pour changer le temps de l'audio sur une position précisée
+     * @function setTime
+     * @instance
+     * @memberof Lecteur
+     * @event
+     * @param {number} index position donnée
+     * @param {number} temps temps à rajouter/enlever au temps courant
+     * @see Lecteur#show
+     */
+    setTime(index, temps) {
+        document.getElementsByClassName("zik")[index].currentTime += temps;
     }
 
-    moveTime(event, i, temps) {
-        let index = event;
-        let time = i;
-        document.getElementsByClassName("zik")[index].currentTime += time;
-    }
-
-    reguleVolume(event, i, j) {
-        let index = event;
-        let jbtn = i;
+    /**
+     * Evénement appelé pour changer le volume de l'audio sur une position précisée
+     * @function reguleVolume
+     * @instance
+     * @memberof Lecteur
+     * @event
+     * @param {number} index position donnée
+     * @param {number} jbtn niveau du volume correspondant [1 à 5]
+     * @see Lecteur#show
+     */
+    reguleVolume(index, jbtn) {
         let element = document.getElementsByClassName("V" + jbtn)[index];
         let volume = (parseInt(element.value, 10) * 20);
         document.getElementsByClassName("getVol")[index].textContent = volume + "%";
@@ -558,8 +1022,17 @@ class Lecteur {
         }
     }
 
-    myplay(event, i) {
-        let index = event;
+
+    /**
+     * Evénement appelé pour démarrer ou mettre en pause l'audio à la position donnée
+     * @function myplay
+     * @instance
+     * @memberof Lecteur
+     * @event
+     * @param {number} index position donnée
+     * @see Lecteur#show
+     */
+    myplay(index) {
         let audio = ManageZik.getAudio(index);
         let elt = document.getElementsByClassName("play")[index];
         let image = "";
@@ -572,20 +1045,28 @@ class Lecteur {
             audio.play();
             image = 'pause';
         }
-        Lecteur.styleSvg(elt, Svg[image]);
+        Lecteur.styleSvg(elt, SVG[image]);
     }
 
-    rating(event, i, direction) {
-        let index = event;
-        let dir = i;
+    /**
+     * Evénement appelé pour gérer la vitesse de lecture de l'audio à la position donnée
+     * @function rating
+     * @instance
+     * @memberof Lecteur
+     * @event
+     * @param {number} index position donnée
+     * @param {string} direction caractère égal à '+' ou '-' pour accélérer ou diminuer la vitesse de lecture
+     * @see Lecteur#show
+     */
+    rating(index, direction) {
         let valeur = 0;
         let rate = ManageZik.getRate(index);
-        if (dir == '-') {
+        if (direction == '-') {
             if (rate - FREQ_RATE > 0) {
                 valeur = -FREQ_RATE;
             }
         }
-        if (dir == '+') {
+        if (direction == '+') {
             if (rate + FREQ_RATE < 3) {
                 valeur = FREQ_RATE;
             }
@@ -596,32 +1077,78 @@ class Lecteur {
         document.getElementsByClassName("zik")[index].playbackRate = (newValue);
     }
 
-    loop(event, i) {
-        let index = event;
+    /**
+     * Evénement appelé pour jouer en boucle l'audio à la position donnée
+     * @function loop
+     * @instance
+     * @memberof Lecteur
+     * @event
+     * @param {number} index position donnée
+     * @see Lecteur#show
+     */
+    loop(index) {
         let loop = ManageZik.getLoop(index);
         loop = !loop;
         ManageZik.setLoop(index, loop);
     }
 
-    canplay(event, i) {
-        let index = event;
+    /**
+     * Evénement appelé pour détecter si le son de la position donnée en paramètre est jouable ou non<br>
+     * Si oui, on affiche le lecteur correspondant, sinon, l'erreur correspondante apparaît
+     * @function canplay
+     * @instance
+     * @memberof Lecteur
+     * @event
+     * @param {number} index position donnée
+     * @see Lecteur#show
+     * @see Lecteur#checkNameZik
+     */
+    canplay(index) {
         document.getElementsByClassName("error_sound")[index].style.visibility = "hidden";
         document.getElementsByClassName("musik")[index].style.visibility = "visible";
         ManageZik.setPlayable(index, true);
         Lecteur.checkNameZik(index);
     }
 
+    /**
+     * Formate l'affichage depuis le temps courant et la durée de l'audio passé en paramètre via sa position
+     * @function formatTime
+     * @instance
+     * @memberof Lecteur
+     * @static
+     * @param {number} index position de l'audio
+     * @param {number} current temps courant de l'audio
+     * @param {number} duration durée de l'audio 
+     * @see Lecteur.numberToTime
+     */
     static formatTime(index, current, duration) {
         document.getElementsByClassName("time_value")[index].textContent =
-            Lecteur.sToTime(current) + " / " + Lecteur.sToTime(duration);
+            Lecteur.numberToTime(current) + " / " + Lecteur.numberToTime(duration);
     }
 
-    afterdata(event, i) {
-        let index = event;
+    /**
+     * Evénement appelé après chargement des métadonnées de l'audio à la position donnée
+     * @function afterdata
+     * @instance
+     * @memberof Lecteur
+     * @event
+     * @param {number} index position donnée
+     * @see Lecteur#show
+     */
+    afterdata(index) {
         let audio = ManageZik.getAudio(index);
         Lecteur.formatTime(index, audio.currentTime, audio.duration);
     }
 
+    /**
+     * Calcule l'écart en pourcentage qu'il faut, via le nombre de couleurs donnés depuis la variable DESIGN.COLOR_TIME
+     * @function getStepFromColorTime
+     * @instance
+     * @memberof Lecteur
+     * @static
+     * @returns {number} Pourcentage entier résultant du calcul : 100 / nombre de couleurs
+     * @see Lecteur.setColorTime
+     */
     static getStepFromColorTime() {
         let long = -1;
         for (let i in DESIGN.COLOR_TIME) {
@@ -634,8 +1161,16 @@ class Lecteur {
         return step;
     }
 
-    timeupdate(event, i) {
-        let index = event;
+    /**
+     * Evénement qui se déclenche lorsque le temps de l'audio passé en paramètre est mis à jour
+     * @function timeupdate
+     * @instance
+     * @memberof Lecteur
+     * @event
+     * @param {number} index position de l'audio
+     * @see Lecteur#show
+     */
+    timeupdate(index) {
         let glob = ManageZik.getAudio(index);
         let looping = ManageZik.getLoop(index);
         var duration = glob.duration;
@@ -648,7 +1183,7 @@ class Lecteur {
                     glob.play();
                 } else {
                     ManageZik.setStart(index, false);
-                    Lecteur.styleSvg(document.getElementsByClassName("play")[index], Svg.start);
+                    Lecteur.styleSvg(document.getElementsByClassName("play")[index], SVG.start);
                 }
             }, 500);
         }
@@ -667,6 +1202,14 @@ class Lecteur {
         barre_time.style.backgroundColor = change_color;
     }
 
+    /**
+     * Design le container de tous les lecteurs
+     * @function styleContainer
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.allStyles
+     */
     static styleContainer() {
         var container = document.getElementById("ctnr");
         container.style.width = "100%";
@@ -675,6 +1218,14 @@ class Lecteur {
         container.style.overflowX = "hidden";
     }
 
+    /**
+     * Design tous les containers audios
+     * @function styleAudios
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.allStyles
+     */
     static styleAudios() {
         var audios = document.getElementById("audios");
         audios.style.display = "flex";
@@ -683,6 +1234,16 @@ class Lecteur {
         audios.style.width = "100%";
     }
 
+    /**
+     * Pour tous les sons, si le son passé en paramètre via sa position est non jouable ou présente une erreur de format,<br>
+     * remplace le lecteur par l'erreur correspondante
+     * @function manageBadSound
+     * @instance
+     * @memberof Lecteur
+     * @static
+     * @param {number} index position donnée
+     * @see Lecteur.show
+     */
     static manageBadSound(index) {
         let blocs = [
             ["musik", "hidden"],
@@ -693,6 +1254,18 @@ class Lecteur {
         }
     }
 
+    /**
+     * Vérifie si le son de l'audio passé en paramètre via sa position est au bon format<br>
+     * Si non, affiche l'erreur correspondante au lieu du lecteur
+     * @function checkNameZik
+     * @param {number} index position donnée
+     * @static
+     * @instance
+     * @memberof Lecteur
+     * @see ManageZik#getAudio
+     * @see ManageZik#removeZik
+     * @see Lecteur#event:canplay
+     */
     static checkNameZik(index) {
         let musik = document.getElementsByClassName("musik")[index];
         let err_so = document.getElementsByClassName("error_sound")[index];
@@ -721,6 +1294,28 @@ class Lecteur {
         }
     }
 
+    /**
+     * Appelle toutes les fonctions de stylisation de contenu
+     * @function allStyles
+     * @instance
+     * @static
+     * @memberof Lecteur
+     * @see Lecteur.styleMusik
+     * @see Lecteur.styleContainer
+     * @see Lecteur.styleAudios
+     * @see Lecteur.styleAdvanced
+     * @see Lecteur.styleBarre
+     * @see Lecteur.styleProgressBar
+     * @see Lecteur.styleTime
+     * @see Lecteur.styleTitres
+     * @see Lecteur.styleDesign
+     * @see Lecteur.styleContent
+     * @see Lecteur.styleBody
+     * @see CssRules#addTitleControllerRules
+     * @see CssRules#addRules
+     * @see Lecteur#useStyleProgressBar
+     * @see PROGRESS_BAR_STYLED
+     */
     static allStyles() {
         Lecteur.styleMusik();
         Lecteur.styleContainer();
@@ -728,7 +1323,7 @@ class Lecteur {
         Lecteur.styleAdvanced();
         Lecteur.styleBarre();
         Lecteur.styleProgressBar();
-        Lecteur.styleMove();
+        Lecteur.styleTime();
         Lecteur.styleTitres();
         Lecteur.styleDesign();
         Lecteur.styleContent();
@@ -739,6 +1334,31 @@ class Lecteur {
 
     }
 
+    /**
+     * Affiche et implémente toutes les actions et événements liés au lecteur
+     * @function show
+     * @instance
+     * @memberof Lecteur
+     * @see ManageZik#setStart
+     * @see ManageZik#setRate
+     * @see ManageZik#setPlayable
+     * @see ManageZik#setLoop
+     * @see ManageZik#setAudio
+     * @see ManageZik#getAudio
+     * @see ManageZik#setAuthor
+     * @see ManageZik#setTitre
+     * @see Lecteur.manageBadSound
+     * @see Lecteur#event:rating
+     * @see Lecteur#event:loop
+     * @see Lecteur#event:canplay
+     * @see Lecteur#event:afterdata
+     * @see Lecteur#event:myplay
+     * @see Lecteur#event:timeupdate
+     * @see Lecteur#event:setTime
+     * @see Lecteur#styleSvg
+     * @see SVG
+     * @see DESIGN
+     */
     show() {
         Lecteur.allStyles();
         for (let i = 0; i < document.getElementsByClassName("musik").length; i++) {
@@ -774,11 +1394,11 @@ class Lecteur {
             for (let controller of[
                     ["M60", "moins60", -60], ["M10", "moins10", -10], ["P10", "plus10", 10], ["P60", "plus60", 60]
                 ]) {
-                Lecteur.styleSvg(document.getElementsByClassName(controller[0])[i], Svg[controller[1]]);
+                Lecteur.styleSvg(document.getElementsByClassName(controller[0])[i], SVG[controller[1]]);
                 let formatTime = (controller[2] > 0) ? "+" + controller[2] : controller[2] + "";
                 formatTime = formatTime[0] + " " + formatTime[1] + formatTime[2];
                 let btnControl = document.getElementsByClassName(controller[0])[i];
-                btnControl.addEventListener("click", this.moveTime.bind(event, i, controller[2]));
+                btnControl.addEventListener("click", this.setTime.bind(event, i, controller[2]));
                 btnControl.children[0].textContent = formatTime + " s";
             }
             let volumer = document.getElementsByClassName("volume")[i];
@@ -789,7 +1409,7 @@ class Lecteur {
                 document.getElementsByClassName("V" + j)[i].addEventListener("click", this.reguleVolume.bind(event, i, j));
             }
             let player = document.getElementsByClassName("play")[i];
-            Lecteur.styleSvg(player, Svg.start);
+            Lecteur.styleSvg(player, SVG.start);
             player.addEventListener("click", this.myplay.bind(event, i));
             ManageZik.getAudio(i).addEventListener("timeupdate", this.timeupdate.bind(event, i));
         }
