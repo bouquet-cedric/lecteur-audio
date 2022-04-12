@@ -15,7 +15,7 @@ var CssRules = (function() {
         addTitleControllerRules: function() {
             if (style == null)
                 style = document.createElement("style");
-            style.innerHTML += "span.titleControl{display:none;position:absolute;bottom:0;left:0;transform:translateY(100%);width:100%;text-align:center;background-color:white;border-radius:25px;border:1px solid orange;}" +
+            style.innerHTML += "span.titleControl{display:none;position:absolute;bottom:0;left:0;font-size:x-small;transform:translateY(120%);width:100%;text-align:center;background-color:white;border-radius:25px;}" +
                 ".advanced>button:not(.play):hover span.titleControl{display:inherit;}";
         },
         rule1: "::-webkit-scrollbar {width: 14px;height: 14px;background-color: aqua 0 0 repeat;}",
@@ -95,31 +95,31 @@ var ManageZik = (function() {
         setTitre: function(index, titre) {
             setZik(index, 0, titre);
         },
-        getTitre(index) {
+        getTitre: function(index) {
             return this.getZik(index)[0];
         },
-        setAuthor(index, author) {
+        setAuthor: function(index, author) {
             setZik(index, 1, author);
         },
-        getAuthor(index, author) {
+        getAuthor: function(index, author) {
             return this.getZik(index)[1];
         },
         setStart: function(index, start) {
             setZik(index, 2, start);
         },
-        getStart(index) {
+        getStart: function(index) {
             return this.getZik(index)[2];
         },
         setRate: function(index, rate) {
             setZik(index, 3, rate);
         },
-        getRate(index) {
+        getRate: function(index) {
             return this.getZik(index)[3];
         },
-        getZik(index) {
+        getZik: function(index) {
             return Ziks[index];
         },
-        getTitlesByLetter(letter) {
+        getTitlesByLetter: function(letter) {
             let res = [];
             for (let i = 0; i < this.getZiks().length; i++) {
                 if (this.getTitre(i) != "" && this.isPlayable(i) && this.getTitre(i)[0].toLowerCase() == letter.toLowerCase())
@@ -127,22 +127,28 @@ var ManageZik = (function() {
             }
             return res;
         },
-        removeZik(index) {
+        removeZik: function(index) {
             this.setTitre(index, "");
             this.setStart(index, false);
             this.setRate(index, 0);
         },
-        setPlayable(index, mode) {
+        setPlayable: function(index, mode) {
             setZik(index, 4, mode);
         },
-        isPlayable(index) {
+        isPlayable: function(index) {
             return this.getZik(index)[4];
         },
-        setAudio(index, audio) {
+        setAudio: function(index, audio) {
             setZik(index, 5, audio);
         },
-        getAudio(index, audio) {
+        getAudio: function(index, audio) {
             return this.getZik(index)[5];
+        },
+        setLoop: function(index, loop) {
+            setZik(index, 6, loop);
+        },
+        getLoop: function(index) {
+            return this.getZik(index)[6];
         }
     };
 })();
@@ -243,7 +249,8 @@ class Lecteur {
                 barre.style.marginTop = "1em";
             }
             barre.style.width = "10%";
-            barre.style.border = "1px solid black";
+            if (barre.classList.contains("looping"))
+                barre.style.width = "20%";
             barre.style.display = "flex";
             barre.style.justifyContent = "space-evenly";
             barre.style.alignItems = "center";
@@ -264,7 +271,7 @@ class Lecteur {
             mzik.style.position = "relative";
             mzik.style.borderRadius = "25px";
             mzik.style.border = "1px solid black";
-            mzik.style.width = "50%";
+            mzik.style.width = "80%";
             mzik.style.padding = "1em 0.5em 0em 0.5em";
             mzik.style.display = "flex";
             mzik.style.flexDirection = "row";
@@ -414,13 +421,23 @@ class Lecteur {
         frateD2.appendChild(frateVal);
         frateD1.style.borderTop = "1px solid black";
         frateVal.textContent = "1x";
-
         rate.appendChild(frate);
+
+        let divLoop = Lecteur.declareElt("div", "looping barre");
+        let loop = Lecteur.declareElt("input", "loop");
+        loop.type = "checkbox";
+        let lblLoop = Lecteur.declareElt("label", "lbl_loop");
+        lblLoop.style.cursor = "pointer";
+        divLoop.appendChild(loop);
+        divLoop.appendChild(lblLoop);
+        lblLoop.textContent = "loop";
         musik.appendChild(titre);
         musik.appendChild(author);
         musik.appendChild(content);
         musik.appendChild(volume);
         musik.appendChild(rate);
+        musik.appendChild(divLoop);
+
         let errorExistSound = Lecteur.declareElt("div", "error_sound");
         errorExistSound.style.display = "flex";
         errorExistSound.style.flexDirection = "column";
@@ -579,6 +596,13 @@ class Lecteur {
         document.getElementsByClassName("zik")[index].playbackRate = (newValue);
     }
 
+    loop(event, i) {
+        let index = event;
+        let loop = ManageZik.getLoop(index);
+        loop = !loop;
+        ManageZik.setLoop(index, loop);
+    }
+
     canplay(event, i) {
         let index = event;
         document.getElementsByClassName("error_sound")[index].style.visibility = "hidden";
@@ -613,15 +637,19 @@ class Lecteur {
     timeupdate(event, i) {
         let index = event;
         let glob = ManageZik.getAudio(index);
+        let looping = ManageZik.getLoop(index);
         var duration = glob.duration;
         var current = glob.currentTime;
         var percent = Math.ceil((current / duration) * 100);
         if (current == duration) {
-            let elt = glob;
             setTimeout(() => {
-                ManageZik.setStart(index, false);
-                elt.currentTime = 0;
-                Lecteur.styleSvg(document.getElementsByClassName("play")[index], Svg.start);
+                glob.currentTime = 0;
+                if (looping) {
+                    glob.play();
+                } else {
+                    ManageZik.setStart(index, false);
+                    Lecteur.styleSvg(document.getElementsByClassName("play")[index], Svg.start);
+                }
             }, 500);
         }
         let barre_time = document.getElementsByClassName("time")[index];
@@ -641,12 +669,10 @@ class Lecteur {
 
     static styleContainer() {
         var container = document.getElementById("ctnr");
-        // container.style.border = "1px solid black";
-        container.style.width = "50%";
-        container.style.height = "95vmin";
+        container.style.width = "100%";
+        container.style.height = "100%";
         container.style.overflowY = "scroll";
         container.style.overflowX = "hidden";
-        // container.style.margin = "auto";
     }
 
     static styleAudios() {
@@ -713,12 +739,13 @@ class Lecteur {
 
     }
 
-    init() {
+    show() {
         Lecteur.allStyles();
         for (let i = 0; i < document.getElementsByClassName("musik").length; i++) {
             ManageZik.setStart(i, false);
             ManageZik.setRate(i, 1);
             ManageZik.setPlayable(i, false);
+            ManageZik.setLoop(i, false);
             ManageZik.setAudio(i, document.getElementsByClassName("zik")[i]);
             Lecteur.manageBadSound(i);
             let namus = ManageZik.getAudio(i).attributes.src.value.split(".")[0];
@@ -731,8 +758,12 @@ class Lecteur {
             document.getElementsByClassName("name")[i].textContent = the_name;
             document.getElementsByClassName("author")[i].textContent = author;
 
+            document.getElementsByClassName("loop")[i].id = "loop_" + i;
+            document.getElementsByClassName("lbl_loop")[i].htmlFor = "loop_" + i;
+
             document.getElementsByClassName("rM")[i].addEventListener("click", this.rating.bind(event, i, '-'));
             document.getElementsByClassName("rP")[i].addEventListener("click", this.rating.bind(event, i, '+'));
+            document.getElementsByClassName("loop")[i].addEventListener("click", this.loop.bind(event, i));
 
             ManageZik.getAudio(i).addEventListener("canplay", this.canplay.bind(event, i));
             ManageZik.getAudio(i).addEventListener("loadedmetadata", this.afterdata.bind(event, i));
