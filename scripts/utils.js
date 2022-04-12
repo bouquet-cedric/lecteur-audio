@@ -1,17 +1,22 @@
 /* jshint esversion: 6 */
 
 var CssRules = (function() {
-    let createStyle = false;
+    let style = null;
     return {
         addRules: function() {
-            if (!createStyle) {
-                let style = document.createElement("style");
-                for (let i in this) {
-                    if (i.substring(0, 4) == "rule")
-                        style.innerHTML += this[i];
-                }
-                document.body.appendChild(style);
+            if (style == null)
+                style = document.createElement("style");
+            for (let i in this) {
+                if (i.substring(0, 4) == "rule")
+                    style.innerHTML += this[i];
             }
+            document.body.appendChild(style);
+        },
+        addTitleControllerRules: function() {
+            if (style == null)
+                style = document.createElement("style");
+            style.innerHTML += "span.titleControl{display:none;position:absolute;bottom:0;left:0;transform:translateY(100%);width:100%;text-align:center;background-color:white;border-radius:25px;border:1px solid orange;}" +
+                ".advanced>button:not(.play):hover span.titleControl{display:inherit;}";
         },
         rule1: "::-webkit-scrollbar {width: 14px;height: 14px;background-color: aqua 0 0 repeat;}",
         rule2: "::-webkit-scrollbar-track-piece {" +
@@ -45,13 +50,13 @@ var Svg = (function() {
         moins10: "url(\"data:image/svg+xml;utf8," +
             "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
             "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-            "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='skyblue' stroke='black' />" +
+            "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='red' stroke='black' />" +
             "<path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill = 'orange' stroke = 'black' /></svg>\")",
         moins60: "url(\"data:image/svg+xml;utf8," +
             "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
             "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-            "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='skyblue' stroke='black'/>" +
-            "<path d='M260,100 Q210,200,260,300 L235,300 L60,200 L235,100 Z' fill='red' stroke='black'/>" +
+            "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='red' stroke='black'/>" +
+            "<path d='M260,100 Q210,200,260,300 L235,300 L60,200 L235,100 Z' fill='white' stroke='black'/>" +
             "<path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill='orange' stroke='black'/></svg>\")",
         plus10: "url(\"data:image/svg+xml;utf8," +
             "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
@@ -62,7 +67,7 @@ var Svg = (function() {
             "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
             "<circle cx='200' cy='200' r='200' fill='transparent' />" +
             "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
-            "<path d='M130,100 Q180,200,130,300 L155,300 L330,200 L155,100 Z' fill='red' stroke='black'/>" +
+            "<path d='M130,100 Q180,200,130,300 L155,300 L330,200 L155,100 Z' fill='white' stroke='black'/>" +
             "<path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/></svg>\")",
         pause: "url(\"data:image/svg+xml;utf8," +
             "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
@@ -180,10 +185,19 @@ var DESIGN = {
         "TIME_90": "#FF6501"
     }
 };
+
+var PROGRESS_BAR_STYLED = true;
+
 class Lecteur {
 
     constructor() {
+        let glob = document;
+        if (glob != null)
+            glob.write('<div id="ctnr"><div id="audios"></div></div>');
+    }
 
+    static useStyleProgressBar(boolean) {
+        PROGRESS_BAR_STYLED = boolean;
     }
 
     static setColorTimeDefaultValue(value) {
@@ -344,6 +358,10 @@ class Lecteur {
         let btns = "M60 M10 play P10 P60".split(" ");
         for (let i = 0; i < btns.length; i++) {
             let tmp = Lecteur.declareElt("button", btns[i]);
+            let info_bulle = Lecteur.declareElt("span", "titleControl");
+            tmp.style.cursor = "pointer";
+            tmp.style.position = "relative";
+            tmp.appendChild(info_bulle);
             adv.appendChild(tmp);
         }
         content.appendChild(prog);
@@ -689,7 +707,9 @@ class Lecteur {
         Lecteur.styleDesign();
         Lecteur.styleContent();
         Lecteur.styleBody();
-        CssRules.addRules();
+        CssRules.addTitleControllerRules();
+        if (PROGRESS_BAR_STYLED)
+            CssRules.addRules();
 
     }
 
@@ -724,7 +744,11 @@ class Lecteur {
                     ["M60", "moins60", -60], ["M10", "moins10", -10], ["P10", "plus10", 10], ["P60", "plus60", 60]
                 ]) {
                 Lecteur.styleSvg(document.getElementsByClassName(controller[0])[i], Svg[controller[1]]);
-                document.getElementsByClassName(controller[0])[i].addEventListener("click", this.moveTime.bind(event, i, controller[2]));
+                let formatTime = (controller[2] > 0) ? "+" + controller[2] : controller[2] + "";
+                formatTime = formatTime[0] + " " + formatTime[1] + formatTime[2];
+                let btnControl = document.getElementsByClassName(controller[0])[i];
+                btnControl.addEventListener("click", this.moveTime.bind(event, i, controller[2]));
+                btnControl.children[0].textContent = formatTime + " s";
             }
             let volumer = document.getElementsByClassName("volume")[i];
             volumer.style.backgroundColor = DESIGN.COLOR_VOLUME.bg;

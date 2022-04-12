@@ -10,16 +10,14 @@
 </head>
 
 <body>
-    <div id="ctnr">
-        <div id="audios"></div>
-    </div>
-
     <script type="text/javascript">
         var lecteur = new Lecteur();
+        Lecteur.useStyleProgressBar(true);
         Lecteur.setColorTime([
             "blue",
             "green",
-            "yellow"
+            "yellow",
+            "red"
         ]);
         lecteur.addRecord("audios/Casseurs Flowters - À l'heure où je me couche.mp3");
         lecteur.addRecord("audios/Keny Arkana - La Mère Des Enfants Perdus.mp3");
