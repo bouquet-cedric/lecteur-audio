@@ -840,8 +840,10 @@ class Lecteur {
         //     audio.src = URL.createObjectURL(blob);
         // });
         // var url = window.URL.createObjectURL(blob);
-        let blobby = new Blob([source], { type: 'audio' });
+        let extension = source.split('.')[1];
+        let blobby = new Blob([source], { type: 'audio/' + extension });
         audio.src = URL.createObjectURL(blobby);
+        alert(audio.src);
 
 
         var adv = this.declareElt("div", "advanced");
