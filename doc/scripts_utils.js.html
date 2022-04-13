@@ -2,22 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: utils.js</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>scripts/utils.js - Documentation</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
-
 <body>
 
-<div id="main">
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-    <h1 class="page-title">Source: utils.js</h1>
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CssRules.html">CssRules</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CssRules.html#addRules">addRules</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CssRules.html#addTitleControllerRules">addTitleControllerRules</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Lecteur.html">Lecteur</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.allStyles">allStyles</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.formatTime">formatTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.getStepFromColorTime">getStepFromColorTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.manageBadSound">manageBadSound</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.numberToTime">numberToTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.setColorTime">setColorTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.setColorTimeDefaultValue">setColorTimeDefaultValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleAdvanced">styleAdvanced</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleAudios">styleAudios</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleBarre">styleBarre</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleBody">styleBody</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleContainer">styleContainer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleContent">styleContent</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleDesign">styleDesign</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleMusik">styleMusik</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleProgressBar">styleProgressBar</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleTime">styleTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleTitres">styleTitres</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#addRecord">addRecord</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#build">build</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#checkNameZik">checkNameZik</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#declareElt">declareElt</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#show">show</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#styleSvg">styleSvg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#useStyleProgressBar">useStyleProgressBar</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ManageZik.html">ManageZik</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getAudio">getAudio</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getAuthor">getAuthor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getLoop">getLoop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getRate">getRate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getStart">getStart</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getTitlesByLetter">getTitlesByLetter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getTitre">getTitre</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getZik">getZik</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getZiks">getZiks</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#isPlayable">isPlayable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#removeZik">removeZik</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setAudio">setAudio</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setAuthor">setAuthor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setLoop">setLoop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setPlayable">setPlayable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setRate">setRate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setStart">setStart</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setTitre">setTitre</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setZik">setZik</a></span></li><li class="nav-heading">Events</li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:afterdata">afterdata</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:canplay">canplay</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:loop">loop</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:myplay">myplay</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:rating">rating</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:reguleVolume">reguleVolume</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:setTime">setTime</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:timeupdate">timeupdate</a></span></li><li class="nav-heading">Namespaces</li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="DESIGN.html">DESIGN</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="FREQ_RATE.html">FREQ_RATE</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="PROGRESS_BAR_STYLED.html">PROGRESS_BAR_STYLED</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="SVG.html">SVG</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">scripts/utils.js</h1>
+    
 
     
 
@@ -26,7 +39,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/* jshint esversion: 6 */
+            <pre class="prettyprint source linenums"><code>// @ts-nocheck
+/* jshint esversion: 6 */
 
 /**
  * Génère les règles css pour l'apparence des scrolls-bar et les infos-bulles
@@ -336,7 +350,7 @@ var ManageZik = (function() {
          */
         getTitlesByLetter: function(letter) {
             let res = [];
-            for (let i = 0; i &lt; getZiks().length; i++) {
+            for (let i = 0; i &lt; this.getZiks().length; i++) {
                 if (this.getTitre(i) != "" &amp;&amp; this.isPlayable(i) &amp;&amp; this.getTitre(i)[0].toLowerCase() == letter.toLowerCase())
                     res.push(getZik(i));
             }
@@ -449,8 +463,8 @@ var PROGRESS_BAR_STYLED = true;
  * @global
  * @property {object} COLOR_VOLUME              - Couleurs pour la barre de volume 
  * @see Lecteur.styleDesign
- * @see Lecteur.reguleVolume
- * @see Lecteur.show
+ * @see Lecteur#event:reguleVolume
+ * @see Lecteur#show
  * @property {string} COLOR_VOLUME.bg           - arrière-plan du bloc
  * @property {string} COLOR_VOLUME.fg           - couleur de texte du bloc
  * @property {string} COLOR_VOLUME.button       - liste d'arrière plan pour chacun des boutons de volumes
@@ -579,6 +593,7 @@ class Lecteur {
     */
     static setColorTime(values) {
         DESIGN.COLOR_TIME.DEFAULT = "black";
+        // @ts-ignore
         let step = parseInt(100 / values.length);
         for (let i = 0; i &lt; 100; i += 10) {
             delete DESIGN.COLOR_TIME["TIME_" + i];
@@ -1451,17 +1466,13 @@ class Lecteur {
 
 </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="DESIGN.html">DESIGN</a></li><li><a href="FREQ_RATE.html">FREQ_RATE</a></li><li><a href="PROGRESS_BAR_STYLED.html">PROGRESS_BAR_STYLED</a></li><li><a href="SVG.html">SVG</a></li></ul><h3>Classes</h3><ul><li><a href="CssRules.html">CssRules</a></li><li><a href="Lecteur.html">Lecteur</a></li><li><a href="ManageZik.html">ManageZik</a></li></ul><h3>Events</h3><ul><li><a href="Lecteur.html#event:afterdata">afterdata</a></li><li><a href="Lecteur.html#event:canplay">canplay</a></li><li><a href="Lecteur.html#event:loop">loop</a></li><li><a href="Lecteur.html#event:myplay">myplay</a></li><li><a href="Lecteur.html#event:rating">rating</a></li><li><a href="Lecteur.html#event:reguleVolume">reguleVolume</a></li><li><a href="Lecteur.html#event:setTime">setTime</a></li><li><a href="Lecteur.html#event:timeupdate">timeupdate</a></li></ul>
-</nav>
-
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Apr 13 2022 01:56:32 GMT+0200 (Central European Summer Time)
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> using the Minami theme.
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* jshint esversion: 6 */
 
 /**
@@ -308,7 +309,7 @@ var ManageZik = (function() {
          */
         getTitlesByLetter: function(letter) {
             let res = [];
-            for (let i = 0; i < getZiks().length; i++) {
+            for (let i = 0; i < this.getZiks().length; i++) {
                 if (this.getTitre(i) != "" && this.isPlayable(i) && this.getTitre(i)[0].toLowerCase() == letter.toLowerCase())
                     res.push(getZik(i));
             }
@@ -421,8 +422,8 @@ var PROGRESS_BAR_STYLED = true;
  * @global
  * @property {object} COLOR_VOLUME              - Couleurs pour la barre de volume 
  * @see Lecteur.styleDesign
- * @see Lecteur.reguleVolume
- * @see Lecteur.show
+ * @see Lecteur#event:reguleVolume
+ * @see Lecteur#show
  * @property {string} COLOR_VOLUME.bg           - arrière-plan du bloc
  * @property {string} COLOR_VOLUME.fg           - couleur de texte du bloc
  * @property {string} COLOR_VOLUME.button       - liste d'arrière plan pour chacun des boutons de volumes
@@ -551,6 +552,7 @@ class Lecteur {
     */
     static setColorTime(values) {
         DESIGN.COLOR_TIME.DEFAULT = "black";
+        // @ts-ignore
         let step = parseInt(100 / values.length);
         for (let i = 0; i < 100; i += 10) {
             delete DESIGN.COLOR_TIME["TIME_" + i];
