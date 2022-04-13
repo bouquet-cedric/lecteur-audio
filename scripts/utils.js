@@ -406,76 +406,109 @@ var ManageZik = (function() {
 /**
  * @namespace
  * @global
- * @property {Number} FREQ_RATE Ecart entre les différentes vitesses de lecture
  */
-var FREQ_RATE = 0.25;
-
-/**
- * @namespace
- * @global
- * @property {Boolean} PROGRESS_BAR_STYLED Définit l'utilisation ou non d'une scroll-bar personnalisée
- */
-var PROGRESS_BAR_STYLED = true;
-
-/**
- * @namespace
- * @global
- * @property {object} COLOR_VOLUME              - Couleurs pour la barre de volume 
- * @see Lecteur.styleDesign
- * @see Lecteur#event:reguleVolume
- * @see Lecteur#show
- * @property {string} COLOR_VOLUME.bg           - arrière-plan du bloc
- * @property {string} COLOR_VOLUME.fg           - couleur de texte du bloc
- * @property {string} COLOR_VOLUME.button       - liste d'arrière plan pour chacun des boutons de volumes
- * @property {string} COLOR_VOLUME._button      - arrière-plan des boutons par défaut 
- * @property {object} COLOR_CONTROLLER          - Couleurs pour les contrôleurs audio
- * @see Lecteur.styleAdvanced
- * @property {string} COLOR_CONTROLLER.bg       - arrière-plan du bloc
- * @property {string} COLOR_CONTROLLER.button   - arrière-plan des boutons
- * @property {object} COLOR_RATE                - Couleurs pour le design de la vitesse de lecture
- * @see Lecteur#addRecord
- * @property {string} COLOR_RATE.bg             - arrière-plan du bloc
- * @property {string} COLOR_RATE.fg             - couleur de texte du bloc
- * @property {string} COLOR_RATE._button        - arrière-plan des boutons
- * @property {object} COLOR_TIME                - Couleur de fond de la barre de progression de la musique
- * @property {string} COLOR_TIME.DEFAULT        - Couleur par défault 
- * @see Lecteur.setColorTimeDefaultValue
- * @property {string} COLOR_TIME.TIME_X         - Couleur au temps (X*100) / N, avec N le nombre de couleurs données
- */
-var DESIGN = {
-    COLOR_VOLUME: {
-        bg: "black",
-        fg: "white",
-        button: [
-            "rgb(0, 0, 255)",
-            "rgb(0, 255, 255)",
-            "rgb(0, 255, 0)",
-            "rgb(255, 255, 0)",
-            "rgb(255, 0, 0)"
-        ],
-        _button: "grey"
-    },
-    COLOR_CONTROLLER: {
-        bg: "black",
-        button: "white"
-    },
-    COLOR_RATE: {
-        bg: "black",
-        fg: "white",
-        _button: "grey"
-    },
-    COLOR_TIME: {
-        DEFAULT: "black",
-        TIME_0: "purple",
-        TIME_10: "#1044AA",
-        TIME_20: "#0265FF",
-        TIME_30: "#006599",
-        TIME_40: "#669801",
-        TIME_50: "#99CC01",
-        TIME_60: "yellow",
-        TIME_70: "#FFCC11",
-        TIME_80: "#FE9900",
-        TIME_90: "#FF6501"
+var GLOBALS = {
+    /**
+     * @instance
+     * @memberof GLOBALS
+     * @static
+     * @property { Number } FREQ_RATE Ecart entre les différentes vitesses de lecture 
+     */
+    FREQ_RATE: 0.5,
+    /**
+     * @instance
+     * @memberof GLOBALS
+     * @static
+     * @property {Boolean} PROGRESS_BAR_STYLED Définit l'utilisation ou non d'une scroll-bar personnalisée
+     */
+    PROGRESS_BAR_STYLED: true,
+    /**
+     * @namespace
+     * @instance
+     * @memberof GLOBALS
+     * @static
+     * @property {object} DESIGN Définit les couleurs de design
+     * @property {object} DESIGN.COLOR_VOLUME - Couleurs pour la barre de volume 
+     * @property {object} DESIGN.COLOR_CONTROLLER - Couleurs pour les contrôleurs audio
+     * @property {object} DESIGN.COLOR_RATE - Couleurs pour le design de la vitesse de lecture
+     * @property {object} DESIGN.COLOR_TIME - Couleur de fond de la barre de progression de la musique
+     */
+    DESIGN: {
+        /**
+         * @instance
+         * @memberof GLOBALS.DESIGN
+         * @static
+         * @property {object} COLOR_VOLUME              - Couleurs pour la barre de volume 
+         * @property {string} COLOR_VOLUME.bg - arrière-plan du bloc
+         * @property {string} COLOR_VOLUME.fg - couleur de texte du bloc
+         * @property {string} COLOR_VOLUME.button - liste d'arrière plan pour chacun des boutons de volumes
+         * @property {string} COLOR_VOLUME._button - arrière-plan des boutons par défaut 
+         * @see Lecteur#event:reguleVolume
+         * @see Lecteur#show
+         * @see Lecteur.styleAdvanced
+         */
+        COLOR_VOLUME: {
+            bg: "black",
+            fg: "white",
+            button: [
+                "rgb(0, 0, 255)",
+                "rgb(0, 255, 255)",
+                "rgb(0, 255, 0)",
+                "rgb(255, 255, 0)",
+                "rgb(255, 0, 0)"
+            ],
+            _button: "grey"
+        },
+        /**
+         * @instance
+         * @memberof GLOBALS.DESIGN
+         * @static
+         * @property {object} COLOR_CONTROLLER          - Couleurs pour les contrôleurs audio
+         * @property {string} COLOR_CONTROLLER.bg       - arrière-plan du bloc
+         * @property {string} COLOR_CONTROLLER.button   - arrière-plan des boutons
+         * @see Lecteur.styleDesign
+         */
+        COLOR_CONTROLLER: {
+            bg: "black",
+            button: "white"
+        },
+        /**
+         * @instance
+         * @static
+         * @memberof GLOBALS.DESIGN
+         * @property {object} COLOR_RATE                - Couleurs pour le design de la vitesse de lecture
+         * @property {string} COLOR_RATE.bg             - arrière-plan du bloc
+         * @property {string} COLOR_RATE.fg             - couleur de texte du bloc
+         * @property {string} COLOR_RATE._button        - arrière-plan des boutons
+         * @see Lecteur#addRecord
+         */
+        COLOR_RATE: {
+            bg: "black",
+            fg: "white",
+            _button: "grey"
+        },
+        /**
+         * @instance
+         * @static
+         * @memberof GLOBALS.DESIGN
+         * @property {object} COLOR_TIME                - Couleur de fond de la barre de progression de la musique
+         * @property {string} COLOR_TIME.DEFAULT        - Couleur par défault 
+         * @property {string} COLOR_TIME.TIME_X         - Couleur au temps (X*100) / N, avec N le nombre de couleurs données
+         * @see Lecteur.setColorTimeDefaultValue
+         */
+        COLOR_TIME: {
+            DEFAULT: "black",
+            TIME_0: "purple",
+            TIME_10: "#1044AA",
+            TIME_20: "#0265FF",
+            TIME_30: "#006599",
+            TIME_40: "#669801",
+            TIME_50: "#99CC01",
+            TIME_60: "yellow",
+            TIME_70: "#FFCC11",
+            TIME_80: "#FE9900",
+            TIME_90: "#FF6501"
+        }
     }
 };
 
@@ -512,7 +545,7 @@ class Lecteur {
      * @example Lecteur.useStyleProgressBar(true);
      */
     static useStyleProgressBar(boolean) {
-        PROGRESS_BAR_STYLED = boolean;
+        GLOBALS.PROGRESS_BAR_STYLED = boolean;
     }
 
     /**
@@ -525,16 +558,16 @@ class Lecteur {
      * @static
      * @param {string} value couleur de la barre de progression de la musique
      * @see Lecteur.setColorTime
-     * @see DESIGN
+     * @see GLOBALS.DESIGN
      */
     static setColorTimeDefaultValue(value) {
-        DESIGN.COLOR_TIME.DEFAULT = value;
+        GLOBALS.DESIGN.COLOR_TIME.DEFAULT = value;
     }
 
     /**
      * Spécifie les couleurs à utiliser sur l'avancée de la musique<br>
      * et recalcule, en fonction du nombre de couleurs, le temps pour chaque couleur.<br>
-     * Supprime l'effet de la variable DESIGN.COLOR_TIME.DEFAULT
+     * Supprime l'effet de la variable GLOBALS.DESIGN.COLOR_TIME.DEFAULT
      * @function setColorTime
      * @memberof Lecteur
      * @instance
@@ -548,18 +581,18 @@ class Lecteur {
     ]);
     tous les quarts du temps de la musique, changera la couleur de fond.
     * @see Lecteur.setColorTimeDefaultValue
-    * @see DESIGN
+    * @see GLOBALS.DESIGN
     */
     static setColorTime(values) {
-        DESIGN.COLOR_TIME.DEFAULT = "black";
+        GLOBALS.DESIGN.COLOR_TIME.DEFAULT = "black";
         // @ts-ignore
         let step = parseInt(100 / values.length);
         for (let i = 0; i < 100; i += 10) {
-            delete DESIGN.COLOR_TIME["TIME_" + i];
+            delete GLOBALS.DESIGN.COLOR_TIME["TIME_" + i];
         }
         for (let i = 0; i < 100; i += step) {
             if (values[i / step] != undefined)
-                DESIGN.COLOR_TIME["TIME_" + i] = values[i / step];
+                GLOBALS.DESIGN.COLOR_TIME["TIME_" + i] = values[i / step];
         }
 
     }
@@ -633,7 +666,7 @@ class Lecteur {
         musicos[0].style.marginTop = "2em";
         for (let i = 0; i < musicos.length; i++) {
             let mzik = musicos[i];
-            mzik.style.backgroundColor = DESIGN.COLOR_CONTROLLER.bg;
+            mzik.style.backgroundColor = GLOBALS.DESIGN.COLOR_CONTROLLER.bg;
             mzik.style.color = "white";
             mzik.style.position = "relative";
             mzik.style.borderRadius = "25px";
@@ -683,7 +716,7 @@ class Lecteur {
             times[i].style.padding = "0";
             times[i].style.height = "100%";
             times[i].style.borderRadius = "0 50px 50px 0";
-            times[i].style.backgroundColor = DESIGN.COLOR_TIME.DEFAULT;
+            times[i].style.backgroundColor = GLOBALS.DESIGN.COLOR_TIME.DEFAULT;
             times[i].style.position = "absolute";
         }
     }
@@ -821,8 +854,8 @@ class Lecteur {
         }
         liste = [frateD1, frateD2];
         for (let i of liste) {
-            i.style.backgroundColor = DESIGN.COLOR_RATE._button;
-            i.style.color = DESIGN.COLOR_RATE.fg;
+            i.style.backgroundColor = GLOBALS.DESIGN.COLOR_RATE._button;
+            i.style.color = GLOBALS.DESIGN.COLOR_RATE.fg;
             i.style.borderBottom = "1px solid black";
             i.style.display = " flex";
             i.style.flexDirection = "row";
@@ -830,7 +863,7 @@ class Lecteur {
             i.style.justifyContent = "space-evenly";
             i.style.width = "100%";
         }
-        rate.style.backgroundColor = DESIGN.COLOR_RATE.bg;
+        rate.style.backgroundColor = GLOBALS.DESIGN.COLOR_RATE.bg;
         frate.appendChild(frateD1);
         frate.appendChild(frateD2);
         frateD2.appendChild(frateVal);
@@ -894,7 +927,7 @@ class Lecteur {
     static styleAdvanced() {
         let adv = document.getElementsByClassName("advanced");
         for (let i = 0; i < adv.length; i++) {
-            adv[i].style.backgroundColor = DESIGN.COLOR_CONTROLLER.bg;
+            adv[i].style.backgroundColor = GLOBALS.DESIGN.COLOR_CONTROLLER.bg;
             adv[i].style.borderRadius = "0.5em";
             adv[i].style.width = "100%";
             adv[i].style.padding = "0.5em";
@@ -904,7 +937,7 @@ class Lecteur {
             let children = adv[i].children;
             for (let j = 0; j < children.length; j++) {
                 if (children[j].tagName == "BUTTON") {
-                    children[j].style.backgroundColor = DESIGN.COLOR_CONTROLLER.button;
+                    children[j].style.backgroundColor = GLOBALS.DESIGN.COLOR_CONTROLLER.button;
                     children[j].style.borderRadius = "50%";
                     children[j].style.marginRight = "5px";
                 }
@@ -938,7 +971,7 @@ class Lecteur {
                     if (begin == 0)
                         begin = j;
                     children[j].style.border = "none";
-                    children[j].style.backgroundColor = DESIGN.COLOR_VOLUME._button;
+                    children[j].style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME._button;
                     children[j].style.width = "100%";
                     children[j].style.borderBottom = "1px solid black";
                     children[j].style.cursor = "pointer";
@@ -1017,10 +1050,10 @@ class Lecteur {
         let volume = (parseInt(element.value, 10) * 20);
         document.getElementsByClassName("getVol")[index].textContent = volume + "%";
         document.getElementsByClassName("zik")[index].volume = volume / 100;
-        element.style.backgroundColor = DESIGN.COLOR_VOLUME.button[jbtn - 1];
+        element.style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.button[jbtn - 1];
         for (let k = 1; k <= 5; k++) {
             if (jbtn != k)
-                document.getElementsByClassName("V" + k)[index].style.backgroundColor = DESIGN.COLOR_VOLUME._button;
+                document.getElementsByClassName("V" + k)[index].style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME._button;
         }
     }
 
@@ -1059,18 +1092,19 @@ class Lecteur {
      * @param {number} index position donnée
      * @param {string} direction caractère égal à '+' ou '-' pour accélérer ou diminuer la vitesse de lecture
      * @see Lecteur#show
+     * @see GLOBALS.FREQ_RATE
      */
     rating(index, direction) {
         let valeur = 0;
         let rate = ManageZik.getRate(index);
         if (direction == '-') {
-            if (rate - FREQ_RATE > 0) {
-                valeur = -FREQ_RATE;
+            if (rate - GLOBALS.FREQ_RATE > 0) {
+                valeur = -GLOBALS.FREQ_RATE;
             }
         }
         if (direction == '+') {
-            if (rate + FREQ_RATE < 3) {
-                valeur = FREQ_RATE;
+            if (rate + GLOBALS.FREQ_RATE < 3) {
+                valeur = GLOBALS.FREQ_RATE;
             }
         }
         let newValue = rate + valeur;
@@ -1143,7 +1177,7 @@ class Lecteur {
     }
 
     /**
-     * Calcule l'écart en pourcentage qu'il faut, via le nombre de couleurs donnés depuis la variable DESIGN.COLOR_TIME
+     * Calcule l'écart en pourcentage qu'il faut, via le nombre de couleurs donnés depuis la variable GLOBALS.DESIGN.COLOR_TIME
      * @function getStepFromColorTime
      * @instance
      * @memberof Lecteur
@@ -1153,11 +1187,11 @@ class Lecteur {
      */
     static getStepFromColorTime() {
         let long = -1;
-        for (let i in DESIGN.COLOR_TIME) {
-            if (DESIGN.COLOR_TIME[i] != undefined)
+        for (let i in GLOBALS.DESIGN.COLOR_TIME) {
+            if (GLOBALS.DESIGN.COLOR_TIME[i] != undefined)
                 long++;
             else
-                delete DESIGN.COLOR_TIME[i];
+                delete GLOBALS.DESIGN.COLOR_TIME[i];
         }
         let step = parseInt(100 / long);
         return step;
@@ -1192,12 +1226,12 @@ class Lecteur {
         let barre_time = document.getElementsByClassName("time")[index];
         barre_time.style.width = percent + "%";
         Lecteur.formatTime(index, current, duration);
-        let change_color = DESIGN.COLOR_TIME.DEFAULT;
+        let change_color = GLOBALS.DESIGN.COLOR_TIME.DEFAULT;
         let vars = Lecteur.getStepFromColorTime();
-        if (DESIGN.COLOR_TIME.DEFAULT == "black") {
+        if (GLOBALS.DESIGN.COLOR_TIME.DEFAULT == "black") {
             for (let temps = 0; temps < 100; temps += vars) {
                 if (percent > temps) {
-                    change_color = DESIGN.COLOR_TIME["TIME_" + temps];
+                    change_color = GLOBALS.DESIGN.COLOR_TIME["TIME_" + temps];
                 }
             }
         }
@@ -1316,7 +1350,7 @@ class Lecteur {
      * @see CssRules#addTitleControllerRules
      * @see CssRules#addRules
      * @see Lecteur#useStyleProgressBar
-     * @see PROGRESS_BAR_STYLED
+     * @see GLOBALS.PROGRESS_BAR_STYLED
      */
     static allStyles() {
         Lecteur.styleMusik();
@@ -1331,7 +1365,7 @@ class Lecteur {
         Lecteur.styleContent();
         Lecteur.styleBody();
         CssRules.addTitleControllerRules();
-        if (PROGRESS_BAR_STYLED)
+        if (GLOBALS.PROGRESS_BAR_STYLED)
             CssRules.addRules();
 
     }
@@ -1359,7 +1393,7 @@ class Lecteur {
      * @see Lecteur#event:setTime
      * @see Lecteur#styleSvg
      * @see SVG
-     * @see DESIGN
+     * @see GLOBALS.DESIGN
      */
     show() {
         Lecteur.allStyles();
@@ -1404,9 +1438,9 @@ class Lecteur {
                 btnControl.children[0].textContent = formatTime + " s";
             }
             let volumer = document.getElementsByClassName("volume")[i];
-            volumer.style.backgroundColor = DESIGN.COLOR_VOLUME.bg;
-            volumer.style.color = DESIGN.COLOR_VOLUME.fg;
-            document.getElementsByClassName("V1")[i].style.backgroundColor = DESIGN.COLOR_VOLUME.button[0];
+            volumer.style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.bg;
+            volumer.style.color = GLOBALS.DESIGN.COLOR_VOLUME.fg;
+            document.getElementsByClassName("V1")[i].style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.button[0];
             for (let j = 1; j <= 5; j++) {
                 document.getElementsByClassName("V" + j)[i].addEventListener("click", this.reguleVolume.bind(event, i, j));
             }
