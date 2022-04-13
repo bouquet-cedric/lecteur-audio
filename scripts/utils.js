@@ -834,16 +834,15 @@ class Lecteur {
         audio.preload = "metadata";
 
         // audio.src = "x-x";
-        // audioToBase64(blob).then(res => {
-        //     let blob = new Blob([source], { type: 'audio' });
-        //     let binaire = Lecteur.convertDataURIToBinary(res);
-        //     audio.src = URL.createObjectURL(blob);
-        // });
+        audioToBase64(blob).then(res => {
+            //     let blob = new Blob([source], { type: 'audio' });
+            //     let binaire = Lecteur.convertDataURIToBinary(res);
+            audio.src = res;
+        });
         // var url = window.URL.createObjectURL(blob);
-        let extension = source.split('.')[1];
-        let blobby = new Blob([source], { type: 'audio/' + extension });
+        // let extension = source.split('.')[1];
+        // let blobby = new Blob([source], { type: 'audio/' + extension });
         audio.src = URL.createObjectURL(blobby);
-        alert(audio.src);
 
 
         var adv = this.declareElt("div", "advanced");
