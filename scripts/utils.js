@@ -1,5 +1,5 @@
 // @ts-nocheck
-/* jshint esversion: 6 */
+/* jshint esversion: 8 */
 
 /**
  * Génère les règles css pour l'apparence des scrolls-bar et les infos-bulles
@@ -512,6 +512,15 @@ var GLOBALS = {
     }
 };
 
+async function audioToBase64(audioFile) {
+    return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.onerror = reject;
+        reader.onload = (e) => resolve(e.target.result);
+        reader.readAsDataURL(audioFile);
+    });
+}
+
 /**
  * @namespace
  * @class Lecteur
@@ -777,6 +786,21 @@ class Lecteur {
         }
     }
 
+
+    static convertDataURIToBinary(dataURI) {
+        var BASE64_MARKER = ';base64,';
+        var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+        var base64 = dataURI.substring(base64Index);
+        var raw = window.atob(base64);
+        var rawLength = raw.length;
+        var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+        for (let i = 0; i < rawLength; i++) {
+            array[i] = raw.charCodeAt(i);
+        }
+        return array;
+    }
+
     /**
      * Ajoute un son sur le site
      * @function addRecord
@@ -808,7 +832,18 @@ class Lecteur {
         var time_value = this.declareElt("span", "time_value");
         var audio = this.declareElt("audio", "zik");
         audio.preload = "metadata";
-        audio.src = source;
+
+        let blob = new Blob([source], { type: 'audio' });
+        audio.src = "x-x";
+        audioToBase64(blob).then(res => {
+            // audio.src = URL.createObjectURL(res);
+            let binaire = Lecteur.convertDataURIToBinary(res);
+            let blob = new Blob([binaire]);
+            audio.src = URL.createObjectURL(blob);
+        });
+        // var url = window.URL.createObjectURL(blob);
+
+
         var adv = this.declareElt("div", "advanced");
         let btns = "M60 M10 play P10 P60".split(" ");
         for (let i = 0; i < btns.length; i++) {
