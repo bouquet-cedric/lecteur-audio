@@ -833,12 +833,12 @@ class Lecteur {
         var audio = this.declareElt("audio", "zik");
         audio.preload = "metadata";
 
-        // audio.src = "x-x";
-        let blob = new Blob([source], { type: 'audio' });
-        audioToBase64(blob).then(res => {
-            //     let binaire = Lecteur.convertDataURIToBinary(res);
-            audio.src = res;
-        });
+        audio.src = source;
+        // let blob = new Blob([source], { type: 'audio' });
+        // audioToBase64(blob).then(res => {
+        //     //     let binaire = Lecteur.convertDataURIToBinary(res);
+        //     audio.src = res;
+        // });
         // var url = window.URL.createObjectURL(blob);
         // let extension = source.split('.')[1];
         // let blobby = new Blob([source], { type: 'audio/' + extension });
