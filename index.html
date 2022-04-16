@@ -7,32 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zik Lector</title>
     <script src="scripts/utils.js"></script>
+    <!-- <script src="https://bouquet-cedric.github.io/lecteur-audio/scripts/utils.js"></script> -->
 </head>
 
 <body>
-    <div id="ctnr">
-        <div id="audios"></div>
+    <div style="border: 1px solid black;width: 35%;height: 30em;">
+        <script type="text/javascript">
+            var lecteur = new Lecteur();
+            Lecteur.useStyleProgressBar(true);
+            Lecteur.setColorTime([
+                "blue",
+                "green",
+                "yellow",
+                "red"
+            ]);
+            lecteur.addRecord("audios/Casseurs Flowters - À l'heure où je me couche.mp3");
+            lecteur.addRecord("audios/Keny Arkana - La Mère Des Enfants Perdus.mp3");
+			lecteur.addRecord("audios/Générique - Arsène Lupin.mp3");
+            lecteur.addRecord("audios/Z-Ryk - Brume d'antan.flac");
+            lecteur.addRecord("audios/Z-Ryk - Compo.flac");
+            lecteur.addRecord("audios/Z-Ryk - Maedievus.flac");
+            lecteur.addRecord("audios/Z-Ryk - Melodius.flac");
+            lecteur.addRecord("audios/Z-Ryk - Mi locura.flac");
+            lecteur.addRecord("audios/Z-Ryk - Riff.flac");
+            lecteur.addRecord("audios/Z-Ryk - Street Song.flac");
+            lecteur.show();
+        </script>
     </div>
-
-    <script type="text/javascript">
-        var lecteur = new Lecteur();
-        Lecteur.setColorTime([
-            "blue",
-            "green",
-            "yellow"
-        ]);
-        lecteur.addRecord("audios/Casseurs Flowters - À l'heure où je me couche.mp3");
-        lecteur.addRecord("audios/Keny Arkana - La Mère Des Enfants Perdus.mp3");
-	lecteur.addRecord("audios/Générique - Arsène Lupin.mp3");
-        lecteur.addRecord("audios/Z-Ryk - Brume d'antan.flac");
-        lecteur.addRecord("audios/Z-Ryk - Compo.flac");
-        lecteur.addRecord("audios/Z-Ryk - Maedievus.flac");
-        lecteur.addRecord("audios/Z-Ryk - Melodius.flac");
-        lecteur.addRecord("audios/Z-Ryk - Mi locura.flac");
-        lecteur.addRecord("audios/Z-Ryk - Riff.flac");
-        lecteur.addRecord("audios/Z-Ryk - Street Song.flac");
-        lecteur.init();
-    </script>
 </body>
 
 </html>

@@ -1,5 +1,46 @@
-// @ts-nocheck
-/* jshint esversion: 8 */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>utils.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CssRules.html">CssRules</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CssRules.html#addRules">addRules</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CssRules.html#addTitleControllerRules">addTitleControllerRules</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Lecteur.html">Lecteur</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.allStyles">allStyles</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.formatTime">formatTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.getStepFromColorTime">getStepFromColorTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.manageBadSound">manageBadSound</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.numberToTime">numberToTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.setColorTime">setColorTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.setColorTimeDefaultValue">setColorTimeDefaultValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleAdvanced">styleAdvanced</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleAudios">styleAudios</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleBarre">styleBarre</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleBody">styleBody</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleContainer">styleContainer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleContent">styleContent</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleDesign">styleDesign</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleMusik">styleMusik</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleProgressBar">styleProgressBar</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleTime">styleTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#.styleTitres">styleTitres</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#addRecord">addRecord</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#build">build</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#checkNameZik">checkNameZik</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#declareElt">declareElt</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#show">show</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#styleSvg">styleSvg</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Lecteur.html#useStyleProgressBar">useStyleProgressBar</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ManageZik.html">ManageZik</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getAudio">getAudio</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getAuthor">getAuthor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getLoop">getLoop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getRate">getRate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getStart">getStart</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getTitlesByLetter">getTitlesByLetter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getTitre">getTitre</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getZik">getZik</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#getZiks">getZiks</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#isPlayable">isPlayable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#removeZik">removeZik</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setAudio">setAudio</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setAuthor">setAuthor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setLoop">setLoop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setPlayable">setPlayable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setRate">setRate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setStart">setStart</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setTitre">setTitre</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ManageZik.html#setZik">setZik</a></span></li><li class="nav-heading">Events</li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:afterdata">Lecteur#event:afterdata</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:canplay">Lecteur#event:canplay</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:loop">Lecteur#event:loop</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:myplay">Lecteur#event:myplay</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:rating">Lecteur#event:rating</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:reguleVolume">Lecteur#event:reguleVolume</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:setTime">Lecteur#event:setTime</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Lecteur.html#event:timeupdate">Lecteur#event:timeupdate</a></span></li><li class="nav-heading">Namespaces</li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="GLOBALS.html">GLOBALS</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="GLOBALS.DESIGN.html">GLOBALS.DESIGN</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="SVG.html">SVG</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">utils.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// @ts-nocheck
+/* jshint esversion: 6 */
 
 /**
  * Génère les règles css pour l'apparence des scrolls-bar et les infos-bulles
@@ -107,36 +148,36 @@ var CssRules = (function() {
  */
 var SVG = {
     start: "url(\"data:image/svg+xml;utf8," +
-        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-        "<circle cx='200' cy='200' r='200' fill='transparent'/>" +
-        "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='green' stroke='black'/></svg>\")",
+        "&lt;svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "&lt;circle cx='200' cy='200' r='200' fill='transparent'/>" +
+        "&lt;path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='green' stroke='black'/>&lt;/svg>\")",
     moins10: "url(\"data:image/svg+xml;utf8," +
-        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-        "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-        "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='red' stroke='black' />" +
-        "<path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill = 'orange' stroke = 'black' /></svg>\")",
+        "&lt;svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "&lt;circle cx='200' cy='200' r='200' fill='transparent' />" +
+        "&lt;path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='red' stroke='black' />" +
+        "&lt;path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill = 'orange' stroke = 'black' />&lt;/svg>\")",
     moins60: "url(\"data:image/svg+xml;utf8," +
-        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-        "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-        "<path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='red' stroke='black'/>" +
-        "<path d='M260,100 Q210,200,260,300 L235,300 L60,200 L235,100 Z' fill='white' stroke='black'/>" +
-        "<path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill='orange' stroke='black'/></svg>\")",
+        "&lt;svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "&lt;circle cx='200' cy='200' r='200' fill='transparent' />" +
+        "&lt;path d='M300,100 Q250,200,300,300 L275,300 L100,200 L275,100 Z' fill='red' stroke='black'/>" +
+        "&lt;path d='M260,100 Q210,200,260,300 L235,300 L60,200 L235,100 Z' fill='white' stroke='black'/>" +
+        "&lt;path d='M230,100 Q180,200,230,300 L205,300 L30,200 L205,100 Z' fill='orange' stroke='black'/>&lt;/svg>\")",
     plus10: "url(\"data:image/svg+xml;utf8," +
-        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-        "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-        "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
-        "<path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/></svg>\")",
+        "&lt;svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "&lt;circle cx='200' cy='200' r='200' fill='transparent' />" +
+        "&lt;path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
+        "&lt;path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/>&lt;/svg>\")",
     plus60: "url(\"data:image/svg+xml;utf8," +
-        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-        "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-        "<path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
-        "<path d='M130,100 Q180,200,130,300 L155,300 L330,200 L155,100 Z' fill='white' stroke='black'/>" +
-        "<path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/></svg>\")",
+        "&lt;svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "&lt;circle cx='200' cy='200' r='200' fill='transparent' />" +
+        "&lt;path d='M100,100 Q150,200,100,300 L125,300 L300,200 L125,100 Z' fill='skyblue' stroke='black'/>" +
+        "&lt;path d='M130,100 Q180,200,130,300 L155,300 L330,200 L155,100 Z' fill='white' stroke='black'/>" +
+        "&lt;path d='M170,100 Q220,200,170,300 L195,300 L370,200 L195,100 Z' fill='orange' stroke='black'/>&lt;/svg>\")",
     pause: "url(\"data:image/svg+xml;utf8," +
-        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
-        "<circle cx='200' cy='200' r='200' fill='transparent' />" +
-        "<path d='M100,100 Q150,200,100,300 L170,300  Q120,200,170,100 Z' fill='red' stroke='black'/>" +
-        "<path d='M230,100 Q280,200,230,300 L300,300  Q250,200,300,100 Z' fill='red' stroke='black'/></svg>\")"
+        "&lt;svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "&lt;circle cx='200' cy='200' r='200' fill='transparent' />" +
+        "&lt;path d='M100,100 Q150,200,100,300 L170,300  Q120,200,170,100 Z' fill='red' stroke='black'/>" +
+        "&lt;path d='M230,100 Q280,200,230,300 L300,300  Q250,200,300,100 Z' fill='red' stroke='black'/>&lt;/svg>\")"
 };
 
 /**
@@ -309,8 +350,8 @@ var ManageZik = (function() {
          */
         getTitlesByLetter: function(letter) {
             let res = [];
-            for (let i = 0; i < this.getZiks().length; i++) {
-                if (this.getTitre(i) != "" && this.isPlayable(i) && this.getTitre(i)[0].toLowerCase() == letter.toLowerCase())
+            for (let i = 0; i &lt; this.getZiks().length; i++) {
+                if (this.getTitre(i) != "" &amp;&amp; this.isPlayable(i) &amp;&amp; this.getTitre(i)[0].toLowerCase() == letter.toLowerCase())
                     res.push(getZik(i));
             }
             return res;
@@ -356,7 +397,7 @@ var ManageZik = (function() {
          * Met à jour le son depuis la position indiquée dans le tableau
          * @function setAudio
          * @param {number} index position dans le tableau
-         * @param {HTMLAudioElement} audio balise HTML <audio> 
+         * @param {HTMLAudioElement} audio balise HTML &lt;audio> 
          * @memberof ManageZik
          * @instance
          * @see ManageZik#setZik
@@ -367,7 +408,7 @@ var ManageZik = (function() {
         /**
          * Récupère le son depuis une position donnée dans le tableau
          * @function getAudio
-         * @returns {HTMLAudioElement} balise HTML <audio>
+         * @returns {HTMLAudioElement} balise HTML &lt;audio>
          * @param {number} index position dans le tableau
          * @memberof ManageZik
          * @instance
@@ -512,15 +553,6 @@ var GLOBALS = {
     }
 };
 
-async function audioToBase64(audioFile) {
-    return new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        reader.onerror = reject;
-        reader.onload = (e) => resolve(e.target.result);
-        reader.readAsDataURL(audioFile);
-    });
-}
-
 /**
  * @namespace
  * @class Lecteur
@@ -528,7 +560,7 @@ async function audioToBase64(audioFile) {
 class Lecteur {
 
     /**
-     * Constructeur de la classe lecteur<br>
+     * Constructeur de la classe lecteur&lt;br>
      * Ajoute les blocs HTML nécessaires à l'utilisation de la librairie
      * @function build
      * @memberof Lecteur
@@ -537,7 +569,7 @@ class Lecteur {
     build() {
         let glob = document;
         if (glob != null)
-            glob.write('<div id="ctnr"><div id="audios"></div></div>');
+            glob.write('&lt;div id="ctnr">&lt;div id="audios">&lt;/div>&lt;/div>');
     }
 
     constructor() {
@@ -558,8 +590,8 @@ class Lecteur {
     }
 
     /**
-     * Spécifie la couleur de fond à utiliser <br>
-       Si ce n'est pas "black", alors gardera la même couleur le long de la musique,<br>
+     * Spécifie la couleur de fond à utiliser &lt;br>
+       Si ce n'est pas "black", alors gardera la même couleur le long de la musique,&lt;br>
        sinon, changera la couleur toutes les x secondes 
      * @function setColorTimeDefaultValue
      * @memberof Lecteur
@@ -574,8 +606,8 @@ class Lecteur {
     }
 
     /**
-     * Spécifie les couleurs à utiliser sur l'avancée de la musique<br>
-     * et recalcule, en fonction du nombre de couleurs, le temps pour chaque couleur.<br>
+     * Spécifie les couleurs à utiliser sur l'avancée de la musique&lt;br>
+     * et recalcule, en fonction du nombre de couleurs, le temps pour chaque couleur.&lt;br>
      * Supprime l'effet de la variable GLOBALS.DESIGN.COLOR_TIME.DEFAULT
      * @function setColorTime
      * @memberof Lecteur
@@ -596,10 +628,10 @@ class Lecteur {
         GLOBALS.DESIGN.COLOR_TIME.DEFAULT = "black";
         // @ts-ignore
         let step = parseInt(100 / values.length);
-        for (let i = 0; i < 100; i += 10) {
+        for (let i = 0; i &lt; 100; i += 10) {
             delete GLOBALS.DESIGN.COLOR_TIME["TIME_" + i];
         }
-        for (let i = 0; i < 100; i += step) {
+        for (let i = 0; i &lt; 100; i += step) {
             if (values[i / step] != undefined)
                 GLOBALS.DESIGN.COLOR_TIME["TIME_" + i] = values[i / step];
         }
@@ -619,14 +651,14 @@ class Lecteur {
     declareElt(elt, classes) {
         var e = document.createElement(elt);
         let nb = 1;
-        for (let i = 0; i < classes.length; i++) {
+        for (let i = 0; i &lt; classes.length; i++) {
             if (classes[i] == " ")
                 nb += 1;
         }
         if (nb == 1) e.classList.add(classes);
         else {
             let all_classes = classes.split(" ");
-            for (let i = 0; i < all_classes.length; i++) {
+            for (let i = 0; i &lt; all_classes.length; i++) {
                 e.classList.add(all_classes[i]);
             }
         }
@@ -643,7 +675,7 @@ class Lecteur {
      */
     static styleBarre() {
         let barres = document.getElementsByClassName("barre");
-        for (let i = 0; i < barres.length; i++) {
+        for (let i = 0; i &lt; barres.length; i++) {
             let barre = barres[i];
             if (barre.classList.contains("volume") || barre.classList.contains("rate")) {
                 barre.style.flexDirection = "column";
@@ -656,7 +688,7 @@ class Lecteur {
             barre.style.justifyContent = "space-evenly";
             barre.style.alignItems = "center";
             let children = barre.children;
-            for (let j = 0; j < children.length; j++) {
+            for (let j = 0; j &lt; children.length; j++) {
                 children[j].style.width = "100%";
             }
         }
@@ -673,7 +705,7 @@ class Lecteur {
     static styleMusik() {
         let musicos = document.getElementsByClassName("musik");
         musicos[0].style.marginTop = "2em";
-        for (let i = 0; i < musicos.length; i++) {
+        for (let i = 0; i &lt; musicos.length; i++) {
             let mzik = musicos[i];
             mzik.style.backgroundColor = GLOBALS.DESIGN.COLOR_CONTROLLER.bg;
             mzik.style.color = "white";
@@ -699,7 +731,7 @@ class Lecteur {
      */
     static styleProgressBar() {
         var progs = document.getElementsByClassName("prog");
-        for (let i = 0; i < progs.length; i++) {
+        for (let i = 0; i &lt; progs.length; i++) {
             progs[i].style.width = "50%";
             progs[i].style.height = "0.5em";
             progs[i].style.borderRadius = "0 50px 50px 0";
@@ -718,7 +750,7 @@ class Lecteur {
      */
     static styleTime() {
         var times = document.getElementsByClassName("time");
-        for (let i = 0; i < times.length; i++) {
+        for (let i = 0; i &lt; times.length; i++) {
             times[i].style.width = "0%";
             times[i].style.left = "0";
             times[i].style.top = "0";
@@ -740,7 +772,7 @@ class Lecteur {
      */
     static styleTitres() {
         var names = document.getElementsByClassName("name");
-        for (let i = 0; i < names.length; i++) {
+        for (let i = 0; i &lt; names.length; i++) {
             names[i].style.width = "100%";
             names[i].style.left = "0";
             names[i].style.top = "0";
@@ -776,7 +808,7 @@ class Lecteur {
      */
     static styleContent() {
         var contents = document.getElementsByClassName("content");
-        for (let i = 0; i < contents.length; i++) {
+        for (let i = 0; i &lt; contents.length; i++) {
             contents[i].style.display = "flex";
             contents[i].style.flexDirection = "column";
             contents[i].style.width = "calc(70% - 1em)";
@@ -784,21 +816,6 @@ class Lecteur {
             contents[i].style.marginTop = "1em";
             contents[i].style.alignItems = "center";
         }
-    }
-
-
-    static convertDataURIToBinary(dataURI) {
-        var BASE64_MARKER = ';base64,';
-        var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
-        var base64 = dataURI.substring(base64Index);
-        var raw = window.atob(base64);
-        var rawLength = raw.length;
-        var array = new Uint8Array(new ArrayBuffer(rawLength));
-
-        for (let i = 0; i < rawLength; i++) {
-            array[i] = raw.charCodeAt(i);
-        }
-        return array;
     }
 
     /**
@@ -832,22 +849,10 @@ class Lecteur {
         var time_value = this.declareElt("span", "time_value");
         var audio = this.declareElt("audio", "zik");
         audio.preload = "metadata";
-
         audio.src = source;
-        // let blob = new Blob([source], { type: 'audio' });
-        // audioToBase64(blob).then(res => {
-        //     //     let binaire = Lecteur.convertDataURIToBinary(res);
-        //     audio.src = res;
-        // });
-        // var url = window.URL.createObjectURL(blob);
-        // let extension = source.split('.')[1];
-        // let blobby = new Blob([source], { type: 'audio/' + extension });
-        // audio.src = URL.createObjectURL(blobby);
-
-
         var adv = this.declareElt("div", "advanced");
         let btns = "M60 M10 play P10 P60".split(" ");
-        for (let i = 0; i < btns.length; i++) {
+        for (let i = 0; i &lt; btns.length; i++) {
             let tmp = this.declareElt("button", btns[i]);
             let info_bulle = this.declareElt("span", "titleControl");
             tmp.style.cursor = "pointer";
@@ -962,7 +967,7 @@ class Lecteur {
      */
     static styleAdvanced() {
         let adv = document.getElementsByClassName("advanced");
-        for (let i = 0; i < adv.length; i++) {
+        for (let i = 0; i &lt; adv.length; i++) {
             adv[i].style.backgroundColor = GLOBALS.DESIGN.COLOR_CONTROLLER.bg;
             adv[i].style.borderRadius = "0.5em";
             adv[i].style.width = "100%";
@@ -971,7 +976,7 @@ class Lecteur {
             adv[i].style.alignItems = "center";
             adv[i].style.justifyContent = "space-around";
             let children = adv[i].children;
-            for (let j = 0; j < children.length; j++) {
+            for (let j = 0; j &lt; children.length; j++) {
                 if (children[j].tagName == "BUTTON") {
                     children[j].style.backgroundColor = GLOBALS.DESIGN.COLOR_CONTROLLER.button;
                     children[j].style.borderRadius = "50%";
@@ -991,7 +996,7 @@ class Lecteur {
      */
     static styleDesign() {
         let adv = document.getElementsByClassName("design");
-        for (let i = 0; i < adv.length; i++) {
+        for (let i = 0; i &lt; adv.length; i++) {
             adv[i].style.width = "30%";
             adv[i].style.height = "90%";
             adv[i].style.display = "flex";
@@ -1001,7 +1006,7 @@ class Lecteur {
             adv[i].style.padding = "0.5em";
             let children = adv[i].children;
             let begin = 0;
-            for (let j = 0; j < children.length; j++) {
+            for (let j = 0; j &lt; children.length; j++) {
                 children[j].style.height = "calc(100% / 6)";
                 if (children[j].tagName == "BUTTON") {
                     if (begin == 0)
@@ -1050,7 +1055,7 @@ class Lecteur {
      */
     static numberToTime(time) {
         function padZero(v) {
-            return (v < 10) ? "0" + v : v;
+            return (v &lt; 10) ? "0" + v : v;
         }
         return padZero(parseInt((time / (60 * 60)) % 24)) + ":" +
             padZero(parseInt((time / (60)) % 60)) + ":" +
@@ -1087,7 +1092,7 @@ class Lecteur {
         document.getElementsByClassName("getVol")[index].textContent = volume + "%";
         document.getElementsByClassName("zik")[index].volume = volume / 100;
         element.style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.button[jbtn - 1];
-        for (let k = 1; k <= 5; k++) {
+        for (let k = 1; k &lt;= 5; k++) {
             if (jbtn != k)
                 document.getElementsByClassName("V" + k)[index].style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME._button;
         }
@@ -1139,7 +1144,7 @@ class Lecteur {
             }
         }
         if (direction == '+') {
-            if (rate + GLOBALS.FREQ_RATE < 3) {
+            if (rate + GLOBALS.FREQ_RATE &lt; 3) {
                 valeur = GLOBALS.FREQ_RATE;
             }
         }
@@ -1165,7 +1170,7 @@ class Lecteur {
     }
 
     /**
-     * Evénement appelé pour détecter si le son de la position donnée en paramètre est jouable ou non<br>
+     * Evénement appelé pour détecter si le son de la position donnée en paramètre est jouable ou non&lt;br>
      * Si oui, on affiche le lecteur correspondant, sinon, l'erreur correspondante apparaît
      * @function canplay
      * @instance
@@ -1265,7 +1270,7 @@ class Lecteur {
         let change_color = GLOBALS.DESIGN.COLOR_TIME.DEFAULT;
         let vars = Lecteur.getStepFromColorTime();
         if (GLOBALS.DESIGN.COLOR_TIME.DEFAULT == "black") {
-            for (let temps = 0; temps < 100; temps += vars) {
+            for (let temps = 0; temps &lt; 100; temps += vars) {
                 if (percent > temps) {
                     change_color = GLOBALS.DESIGN.COLOR_TIME["TIME_" + temps];
                 }
@@ -1307,7 +1312,7 @@ class Lecteur {
     }
 
     /**
-     * Pour tous les sons, si le son passé en paramètre via sa position est non jouable ou présente une erreur de format,<br>
+     * Pour tous les sons, si le son passé en paramètre via sa position est non jouable ou présente une erreur de format,&lt;br>
      * remplace le lecteur par l'erreur correspondante
      * @function manageBadSound
      * @instance
@@ -1327,7 +1332,7 @@ class Lecteur {
     }
 
     /**
-     * Vérifie si le son de l'audio passé en paramètre via sa position est au bon format<br>
+     * Vérifie si le son de l'audio passé en paramètre via sa position est au bon format&lt;br>
      * Si non, affiche l'erreur correspondante au lieu du lecteur
      * @function checkNameZik
      * @param {number} index position donnée
@@ -1354,7 +1359,7 @@ class Lecteur {
             err_so.style.visibility = "visible";
             errorText.textContent = " n'a pas le bon format";
         } else {
-            for (let i = 0; i < index; i++) {
+            for (let i = 0; i &lt; index; i++) {
                 let elt_name = ManageZik.getAudio(i).attributes.src.value;
                 if (name == elt_name) {
                     musik.style.visibility = "hidden";
@@ -1433,7 +1438,7 @@ class Lecteur {
      */
     show() {
         Lecteur.allStyles();
-        for (let i = 0; i < document.getElementsByClassName("musik").length; i++) {
+        for (let i = 0; i &lt; document.getElementsByClassName("musik").length; i++) {
             ManageZik.setStart(i, false);
             ManageZik.setRate(i, 1);
             ManageZik.setPlayable(i, false);
@@ -1477,7 +1482,7 @@ class Lecteur {
             volumer.style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.bg;
             volumer.style.color = GLOBALS.DESIGN.COLOR_VOLUME.fg;
             document.getElementsByClassName("V1")[i].style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.button[0];
-            for (let j = 1; j <= 5; j++) {
+            for (let j = 1; j &lt;= 5; j++) {
                 document.getElementsByClassName("V" + j)[i].addEventListener("click", this.reguleVolume.bind(event, i, j));
             }
             let player = document.getElementsByClassName("play")[i];
@@ -1486,4 +1491,22 @@ class Lecteur {
             ManageZik.getAudio(i).addEventListener("timeupdate", this.timeupdate.bind(event, i));
         }
     }
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

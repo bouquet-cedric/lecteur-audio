@@ -1,0 +1,4 @@
+*.json
+!*conf*.json
+node_modules/
+.readme_doc.md
