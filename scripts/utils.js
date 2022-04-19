@@ -534,14 +534,27 @@ class Lecteur {
      * @memberof Lecteur
      * @instance
      */
-    build() {
-        let glob = document;
-        if (glob != null)
-            glob.write('<div id="ctnr"><div id="audios"></div></div>');
+    build(id) {
+        if (id == null) {
+            let glob = document;
+            if (glob != null)
+                glob.write('<div id="ctnr"><div id="audios"></div></div>');
+        } else {
+            let glob = document.getElementById(id);
+            if (glob != null) {
+                let container = this.declareElt("div", "container");
+                container.id = "ctnr";
+                let aud = this.declareElt("div", "audios");
+                aud.id = "audios";
+                glob.appendChild(container);
+                container.appendChild(aud);
+            }
+        }
+
     }
 
-    constructor() {
-        this.build();
+    constructor(id) {
+        this.build(id);
     }
 
     /**
