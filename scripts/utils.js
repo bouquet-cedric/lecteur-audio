@@ -532,6 +532,7 @@ class Lecteur {
      * Ajoute les blocs HTML nécessaires à l'utilisation de la librairie
      * @function build
      * @memberof Lecteur
+     * @param {string} id élément auquel on rajoute les blocs, si null, on en créé un nouveau
      * @instance
      */
     build(id) {
@@ -617,6 +618,27 @@ class Lecteur {
                 GLOBALS.DESIGN.COLOR_TIME["TIME_" + i] = values[i / step];
         }
 
+    }
+
+    /**
+     * Modifie les couleurs de la barre de volume
+     * @param {Array} values Tableau de 5 chaînes de caractères représentant des couleurs 
+     * @function setVolumeColor
+     * @memberof Lecteur
+     * @instance
+     * @static
+     * @example Lecteur.setVolumeColor([
+     *          "red",
+     *          "orange",
+     *          "yellow",
+     *          "white",
+     *          "blue"
+     *      ]);
+     * changera la vouleur des volumes 1 à 5 (1 = 20%, 5 = 100%)
+     * @see GLOBALS.DESIGN
+     */
+    static setVolumeColor(values) {
+        GLOBALS.DESIGN.COLOR_VOLUME.button = values;
     }
 
     /**
