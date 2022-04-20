@@ -34,7 +34,7 @@ var CssRules = (function() {
             if (style == null)
                 style = document.createElement("style");
             style.innerHTML += "span.titleControl{display:none;position:absolute;bottom:0;left:0;font-size:x-small;transform:translateY(120%);width:100%;text-align:center;background-color:white;border-radius:25px;}" +
-                ".advanced>button:not(.play):hover span.titleControl{display:inherit;}";
+                ".advanced>button:hover span.titleControl{display:inherit}";
         },
         /**
          * Ajoute la règle sur le webkit-scrollbar
@@ -1138,15 +1138,18 @@ class Lecteur {
     myplay(index) {
         let audio = ManageZik.getAudio(index);
         let elt = document.getElementsByClassName("play")[index];
+        let titleControl = elt.children[0];
         let image = "";
         if (ManageZik.getStart(index)) {
             audio.pause();
             ManageZik.setStart(index, false);
             image = 'start';
+            titleControl.textContent = "play";
         } else {
             ManageZik.setStart(index, true);
             audio.play();
             image = 'pause';
+            titleControl.textContent = "pause";
         }
         Lecteur.styleSvg(elt, SVG[image]);
     }
@@ -1498,15 +1501,19 @@ class Lecteur {
             volumeTitle.style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.bg;
 
             for (let controller of[
-                    ["M60", "moins60", -60], ["M10", "moins10", -10], ["P10", "plus10", 10], ["P60", "plus60", 60]
+                    ["M60", "moins60", -60], ["M10", "moins10", -10], ["play", "play", "play"], ["P10", "plus10", 10], ["P60", "plus60", 60]
                 ]) {
                 Lecteur.styleSvg(document.getElementsByClassName(controller[0])[i], SVG[controller[1]]);
-                let formatTime = (controller[2] > 0) ? "+" + controller[2] : controller[2] + "";
-                formatTime = formatTime[0] + " " + formatTime[1] + formatTime[2];
                 let btnControl = document.getElementsByClassName(controller[0])[i];
-                btnControl.addEventListener("click", this.setTime.bind(event, i, controller[2]));
-                btnControl.children[0].textContent = formatTime + " s";
+                if (controller[2] != "play") {
+                    let formatTime = (controller[2] > 0) ? "+" + controller[2] : controller[2] + "";
+                    formatTime = formatTime[0] + " " + formatTime[1] + formatTime[2];
+                    btnControl.addEventListener("click", this.setTime.bind(event, i, controller[2]));
+                    btnControl.children[0].textContent = formatTime + " s";
+                } else
+                    btnControl.children[0].textContent = "play";
             }
+
             let volumer = document.getElementsByClassName("volume")[i];
             volumer.style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.bg;
             volumer.style.color = GLOBALS.DESIGN.COLOR_VOLUME.fg;
