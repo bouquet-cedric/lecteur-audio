@@ -1511,7 +1511,8 @@ class Lecteur {
             volumer.style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.bg;
             volumer.style.color = GLOBALS.DESIGN.COLOR_VOLUME.fg;
             let designer = document.getElementsByClassName("design")[i];
-            designer.style.backgroundImage = "linear-gradient(180deg," + GLOBALS.DESIGN.COLOR_VOLUME.button.reverse().join(',') + ")";
+            let copy = Object.assign([], GLOBALS.DESIGN.COLOR_VOLUME.button);
+            designer.style.backgroundImage = "linear-gradient(180deg," + copy.reverse().join(',') + ")";
             document.getElementsByClassName("V1")[i].style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.button[0];
             document.getElementsByClassName("V1")[i].style.backgroundImage = SVG.volume;
             for (let j = 1; j <= 5; j++) {
