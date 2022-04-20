@@ -104,6 +104,7 @@ var CssRules = (function() {
  * @property {string} SVG.plus10 Logo plus 10 secondes
  * @property {string} SVG.plus60 Logo plus 1 minute
  * @property {string} SVG.pause Logo pause
+ * @property {string} SVG.volume Logo barre de volume
  */
 var SVG = {
     start: "url(\"data:image/svg+xml;utf8," +
@@ -136,7 +137,16 @@ var SVG = {
         "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
         "<circle cx='200' cy='200' r='200' fill='transparent' />" +
         "<path d='M100,100 Q150,200,100,300 L170,300  Q120,200,170,100 Z' fill='red' stroke='black'/>" +
-        "<path d='M230,100 Q280,200,230,300 L300,300  Q250,200,300,100 Z' fill='red' stroke='black'/></svg>\")"
+        "<path d='M230,100 Q280,200,230,300 L300,300  Q250,200,300,100 Z' fill='red' stroke='black'/></svg>\")",
+    volume: "url(\"data:image/svg+xml;utf8," +
+        "<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+        "<rect x='0' y='0' width='400' height='400' fill='transparent' />" +
+        "<g stroke='blue' stroke-width='30' fill='white'>" +
+        "<rect x='0' y='125' width='400' height='100' />" +
+        "<rect x='0' y='50' width='80' height='300' />" +
+        "<rect x='320' y='50' width='80' height='300' />" +
+        "</g>" +
+        "</svg>\")"
 };
 
 /**
@@ -867,18 +877,7 @@ class Lecteur {
         var time_value = this.declareElt("span", "time_value");
         var audio = this.declareElt("audio", "zik");
         audio.preload = "metadata";
-
         audio.src = source;
-        // let blob = new Blob([source], { type: 'audio' });
-        // audioToBase64(blob).then(res => {
-        //     //     let binaire = Lecteur.convertDataURIToBinary(res);
-        //     audio.src = res;
-        // });
-        // var url = window.URL.createObjectURL(blob);
-        // let extension = source.split('.')[1];
-        // let blobby = new Blob([source], { type: 'audio/' + extension });
-        // audio.src = URL.createObjectURL(blobby);
-
 
         var adv = this.declareElt("div", "advanced");
         let btns = "M60 M10 play P10 P60".split(" ");
@@ -1033,18 +1032,13 @@ class Lecteur {
             adv[i].style.flexDirection = "column";
             adv[i].style.alignItems = "center";
             adv[i].style.justifyContent = "space-evenly";
-            adv[i].style.padding = "0.5em";
             let children = adv[i].children;
-            let begin = 0;
             for (let j = 0; j < children.length; j++) {
                 children[j].style.height = "calc(100% / 6)";
                 if (children[j].tagName == "BUTTON") {
-                    if (begin == 0)
-                        begin = j;
                     children[j].style.border = "none";
                     children[j].style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME._button;
                     children[j].style.width = "100%";
-                    children[j].style.borderBottom = "1px solid black";
                     children[j].style.cursor = "pointer";
                     children[j].style.borderRadius = "5%";
                 }
@@ -1121,10 +1115,13 @@ class Lecteur {
         let volume = (parseInt(element.value, 10) * 20);
         document.getElementsByClassName("getVol")[index].textContent = volume + "%";
         document.getElementsByClassName("zik")[index].volume = volume / 100;
-        element.style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.button[jbtn - 1];
         for (let k = 1; k <= 5; k++) {
-            if (jbtn != k)
-                document.getElementsByClassName("V" + k)[index].style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME._button;
+            if (jbtn == k) {
+                // document.getElementsByClassName("V" + k)[index].style.backgroundImage = "linear-gradient(90deg," + GLOBALS.DESIGN.COLOR_VOLUME._button + "," + GLOBALS.DESIGN.COLOR_VOLUME._button + ")";
+                document.getElementsByClassName("V" + k)[index].style.backgroundImage = SVG.volume;
+            } else {
+                document.getElementsByClassName("V" + k)[index].style.backgroundImage = "none";
+            }
         }
     }
 
@@ -1496,7 +1493,9 @@ class Lecteur {
             ManageZik.getAudio(i).addEventListener("loadedmetadata", this.afterdata.bind(event, i));
             ManageZik.getAudio(i).volume = 0.2;
 
-            document.getElementsByClassName("getVol")[i].textContent = "20%";
+            let volumeTitle = document.getElementsByClassName("getVol")[i];
+            volumeTitle.textContent = "20%";
+            volumeTitle.style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.bg;
 
             for (let controller of[
                     ["M60", "moins60", -60], ["M10", "moins10", -10], ["P10", "plus10", 10], ["P60", "plus60", 60]
@@ -1511,8 +1510,16 @@ class Lecteur {
             let volumer = document.getElementsByClassName("volume")[i];
             volumer.style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.bg;
             volumer.style.color = GLOBALS.DESIGN.COLOR_VOLUME.fg;
+            let designer = document.getElementsByClassName("design")[i];
+            designer.style.backgroundImage = "linear-gradient(180deg," + GLOBALS.DESIGN.COLOR_VOLUME.button.reverse().join(',') + ")";
             document.getElementsByClassName("V1")[i].style.backgroundColor = GLOBALS.DESIGN.COLOR_VOLUME.button[0];
+            document.getElementsByClassName("V1")[i].style.backgroundImage = SVG.volume;
             for (let j = 1; j <= 5; j++) {
+                document.getElementsByClassName("V" + j)[i].style.backgroundColor = "transparent";
+                document.getElementsByClassName("V" + j)[i].style.backgroundPosition = "0% 50%";
+                document.getElementsByClassName("V" + j)[i].style.backgroundSize = "100% 50%";
+                document.getElementsByClassName("V" + j)[i].style.backgroundRepeat = "no-repeat";
+                document.getElementsByClassName("V" + j)[i].style.width = "100%";
                 document.getElementsByClassName("V" + j)[i].addEventListener("click", this.reguleVolume.bind(event, i, j));
             }
             let player = document.getElementsByClassName("play")[i];
